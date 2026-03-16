@@ -5,3 +5,5 @@
 *.log
 .vscode/
 *.tmp
+*.db
+data/
