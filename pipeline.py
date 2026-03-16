@@ -1037,6 +1037,40 @@ def run_stage04():
 
         result_db_is_new = not os.path.exists(RESULT_DB)
 
+        def _s04_done_combos():
+            """Return the set of (fold, encoding, n_features, model) tuples
+            that are already fully saved in result.db."""
+            if not os.path.exists(RESULT_DB):
+                return set()
+            try:
+                with sqlite3.connect(RESULT_DB, timeout=30) as conn:
+                    rows = conn.execute(
+                        "SELECT fold, encoding, n_features, model FROM metrics"
+                    ).fetchall()
+                return {(int(r[0]), r[1], int(r[2]), r[3]) for r in rows}
+            except Exception:
+                return set()
+
+        done_combos = _s04_done_combos()
+
+        # ── Ask user: resume (default) or replace ────────────────────────────
+        if done_combos:
+            print(f"\n  ⚠  {len(done_combos)} already-completed (fold, encoding, n_features, model) combo(s) found in result.db.")
+            print(f"  [Enter]  Continue  — skip completed combos, only run the remaining  [default]")
+            print(f"  [r]      Replace   — overwrite ALL combos from scratch (deletes existing rows)")
+            run_mode = input("  Your choice: ").strip().lower()
+            if run_mode == 'r':
+                print(f"  ⚠  Replace mode — existing rows will be deleted before each combo is rerun.")
+                resume_mode = False
+            else:
+                print(f"  ✅ Resume mode — {len(done_combos)} completed combo(s) will be skipped.")
+                resume_mode = True
+        else:
+            print(f"  ✅ No prior results found — running all combos fresh.")
+            resume_mode = True   # no-op when done_combos is empty
+
+
+
         def delete_existing(fold, encoding, n_features, model_name):
             if result_db_is_new: return   # skip on first run — no rows to delete
             with sqlite3.connect(RESULT_DB, timeout=30) as conn:
@@ -1460,6 +1494,21 @@ def run_stage04():
                 print(f"  Encoding: {encoding.upper()}  {n_label}")
 
                 for model_name in MODEL_LIST:
+                    if resume_mode and (fold, encoding, n, model_name) in done_combos:
+                        print(f"    ⏭  {model_name} — already in result.db, skipping.")
+                        # Re-load saved metrics so the final summary + .log/.pdf are complete
+                        with sqlite3.connect(RESULT_DB, timeout=30) as _conn:
+                            _saved = pd.read_sql(
+                                "SELECT * FROM metrics WHERE fold=? AND encoding=? AND n_features=? AND model=?",
+                                _conn, params=(int(fold), encoding, int(n), model_name)
+                            )
+                        for _, _r in _saved.iterrows():
+                            _d = _r.to_dict()
+                            all_metrics.append(_d)
+                            model_buckets[model_name].append(_d)
+                        continue
+
+                    # Replace mode (or combo not yet done): wipe old rows then run
                     delete_existing(fold, encoding, n, model_name)
                     print(f"    🔧 {model_name}")
                     try:
