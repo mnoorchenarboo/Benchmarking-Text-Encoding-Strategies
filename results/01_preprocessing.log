@@ -1,0 +1,222 @@
+
+======================================================================
+  STAGE 01 — PRE-PROCESSING
+======================================================================
+
+======================================================================
+  1 — LOAD & INITIAL CLEANING
+======================================================================
+  Loaded : 194,661 rows × 34 columns
+  Columns: ['case_id', 'patient_id', 'age_at_discharge', 'sex', 'avg_wt_enct', 'avg_ht_enct', 'avg_BMI', 'case_service', 'surg_encounter_type', 'case_date', 'surgical_location', 'OR_team_size', 'month_of_year', 'week_day', 'day_of_week', 'scheduled_start_dttm', 'scheduled_end_dttm', 'anesthesia_start_dttm', 'OR_entered_dttm', 'procedure_start_dttm', 'procedure_stop_dttm', 'procedure_minutes', 'OR_left_dttm', 'actual_casetime_minutes', 'first_scheduled_case_of_day_status', 'OR_trip_sequence', 'last_scheduled_case_of_day_status', 'most_responsible_dx', 'operative_dx', 'scheduled_procedure', 'procedure', 'primary_procedure_status', 'anesthetic_type', 'ASA_score']
+  Shape after normalize + clean_missing: 194,661 × 34
+
+  Missing — after initial cleaning:
+  Column                                               N        %
+  ---------------------------------------------------------------
+  avg_wt_enct                                     66,231   34.02%
+  avg_ht_enct                                     66,231   34.02%
+  avg_BMI                                         66,231   34.02%
+  procedure_stop_dttm                             13,257    6.81%
+  procedure_minutes                               13,257    6.81%
+  procedure_start_dttm                            13,227    6.79%
+  ASA_score                                          462    0.24%
+  anesthesia_start_dttm                              139    0.07%
+  operative_dx                                       102    0.05%
+  actual_casetime_minutes                             77    0.04%
+  OR_left_dttm                                        77    0.04%
+  anesthetic_type                                     58    0.03%
+  procedure                                           56    0.03%
+  primary_procedure_status                            56    0.03%
+  sex                                                 19    0.01%
+  surg_encounter_type                                 12    0.01%
+  case_service                                         2    0.00%
+  case_date                                            1    0.00%
+
+======================================================================
+  2 — DATETIME FEATURES
+======================================================================
+  Removed 13,445 rows with missing datetime values → 181,216 remaining
+  Derived: procedure_time, induction_time, emergence_time, scheduled_duration, scheduled_start_hour, or_entry_hour, month_of_year, day_of_week
+  Target : actual_casetime_minutes  (full OR occupancy — room-in to room-out)
+
+======================================================================
+  3 — IMPLAUSIBLE DURATION FILTER  [0, 2880 min]  (hardcoded rule)
+======================================================================
+  procedure_minutes: removed 13 rows outside [0, 2880] min
+  actual_casetime_minutes: removed 30 rows outside [0, 2880] min
+  induction_time: removed 154 rows outside [0, 2880] min
+  emergence_time: removed 71 rows outside [0, 2880] min
+  Shape: 180,948 × 32
+
+======================================================================
+  4 — TARGET DISTRIBUTION
+======================================================================
+
+  Numeric summary — :
+  Column                                     N      Mean        SD       Min    Median       Max    NaN
+  -------------------------------------------------------------------------------------------------
+  actual_casetime_minutes              180,948    135.30    109.71      0.00    101.00   1810.00      0
+  scheduled_duration                   180,948    151.02    105.82     15.00    120.00   1870.00      0
+  procedure_time                       180,948     94.88     92.03      0.00     66.00   1535.00      0
+  induction_time                       180,948     28.38     19.37      0.00     23.00    622.00      0
+  emergence_time                       180,948     12.05     18.84      0.00      9.00   1479.00      0
+
+  Percentiles:
+      1.0th :     18.0 min
+      5.0th :     30.0 min
+     10.0th :     39.0 min
+     25.0th :     62.0 min
+     50.0th :    101.0 min
+     75.0th :    172.0 min
+     90.0th :    283.0 min
+     95.0th :    349.0 min
+     99.0th :    537.0 min
+     99.9th :    769.0 min
+
+======================================================================
+  5 — CLAMP INVALID AGE / BMI  (hardcoded bounds)
+======================================================================
+  age_at_discharge: clamped 26,765 outside [18,130] → NaN  (fold-wise imputation)
+  avg_BMI:          clamped 61,567 outside [5,200]   → NaN  (fold-wise imputation)
+
+======================================================================
+  6 — DROP IDENTIFIER COLUMNS
+======================================================================
+  Dropped: ['patient_id', 'avg_wt_enct', 'avg_ht_enct', 'week_day']  →  shape=180,948 × 28
+  Retained: case_id  (join key for post-hoc subgroup analysis — not used as a feature)
+
+======================================================================
+  7 — MISSINGNESS
+======================================================================
+
+  Missing — before dropping non-imputable:
+  Column                                               N        %
+  ---------------------------------------------------------------
+  avg_BMI                                         61,567   34.02%
+  age_at_discharge                                26,765   14.79%
+  ASA_score                                          351    0.19%
+  operative_dx                                        97    0.05%
+  sex                                                 19    0.01%
+  surg_encounter_type                                 12    0.01%
+  case_service                                         2    0.00%
+  anesthetic_type                                      1    0.00%
+
+  Dropped 480 rows missing in ['ASA_score', 'operative_dx', 'sex', 'surg_encounter_type', 'case_service']
+
+  Missing — after dropping non-imputable:
+  Column                                               N        %
+  ---------------------------------------------------------------
+  avg_BMI                                         61,203   33.91%
+  age_at_discharge                                26,745   14.82%
+  anesthetic_type                                      1    0.00%
+
+======================================================================
+  8 — CATEGORICAL CLEANING
+======================================================================
+
+  Freq — ASA_score after cleanup  (top 20):
+  Value                                                N        %
+  ---------------------------------------------------------------
+  3.0                                             68,983   38.22%
+  2.0                                             55,582   30.80%
+  1.0                                             30,394   16.84%
+  4.0                                             25,424   14.09%
+  5.0                                                 84    0.05%
+
+  [Sex]  dropped 66 rows not in ['male','female']  (hardcoded rule)
+
+  [Surgical Encounter]  mapped: 0=outpatient  1=inpatient
+  Dropped 0 rows with unknown encounter type  (hardcoded rule — dropped before fold generation to keep all indices consistent)
+
+  [Surgical Location]  dropped 1 rows mapped to 'Other'  (hardcoded rule)
+  NOTE: one-hot deferred to Stage 03 (train-fold categories only)
+
+  Freq — surgical_location after mapping  (top 20):
+  Value                                                N        %
+  ---------------------------------------------------------------
+  VH_OR                                          104,043   57.67%
+  UH_OR                                           71,365   39.56%
+  VSC_OR                                           4,296    2.38%
+  OB_VH                                              692    0.38%
+  Procedure_Room                                       2    0.00%
+  Recovery                                             2    0.00%
+
+  [Case Service]  dropped 30 unmapped rows  (hardcoded rule)
+  NOTE: one-hot deferred to Stage 03 (train-fold categories only)
+
+  Freq — case_service after mapping  (top 20):
+  Value                                                N        %
+  ---------------------------------------------------------------
+  Orthopedic                                      48,728   27.02%
+  General_Surgery                                 26,418   14.65%
+  OB_GYN                                          24,548   13.61%
+  ENT                                             16,956    9.40%
+  Urology                                         10,894    6.04%
+  Plastic_Surgery                                 10,540    5.84%
+  Neurosurgery                                    10,333    5.73%
+  Cardiac_Surgery                                 10,058    5.58%
+  Vascular_Surgery                                 6,253    3.47%
+  Dental_Surgery                                   5,937    3.29%
+  Thoracic_Surgery                                 4,873    2.70%
+  Ophthalmology                                    3,531    1.96%
+  Surgical_Oncology                                1,301    0.72%
+
+  [Anesthetic Type]  NaN kept for fold-wise imputation
+  NOTE: one-hot deferred to Stage 03 (train-fold categories only)
+
+  Freq — anesthetic_type after mapping  (top 20):
+  Value                                                N        %
+  ---------------------------------------------------------------
+  General                                        152,550   84.58%
+  Neuraxial                                       14,004    7.76%
+  Sedation                                         5,733    3.18%
+  Regional                                         4,939    2.74%
+  nan                                              2,684    1.49%
+  Local                                              460    0.26%
+
+======================================================================
+  9 — TEXT COLUMN
+======================================================================
+  Retained : scheduled_procedure  (encoded fold-wise in Stage 03)
+  Dropped  : ['procedure', 'operative_dx', 'most_responsible_dx']
+
+  Sample values (first 5 rows):
+    Row 0: extremity irrigation and debridement
+    Row 1: knee arthroscopy acl reconstruction
+    Row 2: cystoscopy
+    Row 3: aortobifemoral bypass
+    Row 4: knee arthroscopy
+
+======================================================================
+  10 — FINAL DATASET SUMMARY
+======================================================================
+
+  Rows          : 180,370  (removed 14,291 = 7.3%)
+  Columns       : 25
+  Target        : actual_casetime_minutes
+  Text column   : ['scheduled_procedure']  (encoded in Stage 03)
+  Fold one-hot  : ['case_service', 'surgical_location', 'anesthetic_type']  (one-hot in Stage 03, train categories only)
+  Structured    : 20  ['case_id', 'age_at_discharge', 'sex', 'avg_BMI', 'OR_team_size', 'month_of_year', 'day_of_week', 'procedure_minutes', 'first_scheduled_case_of_day_status', 'OR_trip_sequence', 'last_scheduled_case_of_day_status', 'primary_procedure_status', 'ASA_score', 'procedure_time', 'induction_time', 'emergence_time', 'scheduled_duration', 'scheduled_start_hour', 'or_entry_hour', 'surgery_encounter_inpatient']
+
+  Missing — final Clean table:
+  Column                                               N        %
+  ---------------------------------------------------------------
+  avg_BMI                                         61,177   33.92%
+  age_at_discharge                                26,701   14.80%
+  anesthetic_type                                  2,684    1.49%
+
+======================================================================
+  SAVE + FOLD INDEX GENERATION
+======================================================================
+  Saved 'Clean' → ./data/surgical_data.db  shape=(180370, 25)
+  KFold: n_splits=5  shuffle=True  random_state=42
+
+  Fold          Train          Val
+  --------------------------------
+  0           144,296       36,074
+  1           144,296       36,074
+  2           144,296       36,074
+  3           144,296       36,074
+  4           144,296       36,074
+
+  ✅ Stage 01 complete.  Log → ./results/01_preprocessing.log

@@ -1,0 +1,501 @@
+
+======================================================================
+  STAGE 03 — FOLD ENCODING
+======================================================================
+  FEATURES_PER_COL = [10, 50, 100, 200]
+  Classical encodings stored for EACH n value above.
+  BERT PCA (train-only, no leakage) stored per fold here — no PCA recomputation in Stage 04.
+
+======================================================================
+  BERT CACHE CHECK
+======================================================================
+  ✅ clinicalbert_scheduled_procedure.npy  shape=(180370, 768)
+  ✅ sentencebert_scheduled_procedure.npy  shape=(180370, 384)
+
+======================================================================
+  LOAD CLEAN TABLE
+======================================================================
+  Loaded   : 180,370 rows × 20 columns
+  Excluded : ['procedure_minutes', 'procedure_time', 'induction_time', 'emergence_time', 'scheduled_duration']  (intraoperative leakage)
+  NaN (fold-imputed)    : {'age_at_discharge': 26701, 'avg_BMI': 61177, 'anesthetic_type': 2684}
+  Categorical (fold OHE): ['anesthetic_type', 'case_service', 'surgical_location']
+  Text column           : scheduled_procedure
+
+======================================================================
+  LOAD FOLD INDICES
+======================================================================
+  Fold 0: train=144,296  val=36,074
+  Fold 1: train=144,296  val=36,074
+  Fold 2: train=144,296  val=36,074
+  Fold 3: train=144,296  val=36,074
+  Fold 4: train=144,296  val=36,074
+
+======================================================================
+  ENCODING LOOP — fold → impute → one-hot → encode (all n values) → save
+======================================================================
+
+----------------------------------------------------------------------
+  FOLD 0  train=144,296  val=36,074
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=21,513  val_NaN=5,188
+      → Filled 21,513 train NaN
+      → Filled 5,188 val NaN
+    [avg_BMI]  type=regression  train_NaN=49,008  val_NaN=12,169
+      → Filled 49,008 train NaN
+      → Filled 12,169 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,155  val_NaN=529
+      → Filled 2,155 train NaN
+      → Filled 529 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 0 train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 0 train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 0 train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.5  std=109.8  min=0.0  max=1730.0
+  y_val  : mean=135.7  std=109.4  min=9.0  max=1810.0
+
+  only_structured  train=(144296, 38)  val=(36074, 38)  (stored once, no text features)
+
+  Classical text encodings (one entry per n value):
+    n= 10  label     train=(144296, 48)  val=(36074, 48)
+    n= 10  tfidf     train=(144296, 48)  val=(36074, 48)
+    n= 10  count     train=(144296, 48)  val=(36074, 48)
+    n= 50  label     train=(144296, 88)  val=(36074, 88)
+    n= 50  tfidf     train=(144296, 88)  val=(36074, 88)
+    n= 50  count     train=(144296, 88)  val=(36074, 88)
+    n=100  label     train=(144296, 138)  val=(36074, 138)
+    n=100  tfidf     train=(144296, 138)  val=(36074, 138)
+    n=100  count     train=(144296, 138)  val=(36074, 138)
+    n=200  label     train=(144296, 238)  val=(36074, 238)
+    n=200  tfidf     train=(144296, 238)  val=(36074, 238)
+    n=200  count     train=(144296, 238)  val=(36074, 238)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n= 10  clinicalbert      PCA(10) on 768-d → 60.8% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  clinicalbert      PCA(50) on 768-d → 88.4% var  train=(144296, 88)  val=(36074, 88)
+    n=100  clinicalbert      PCA(100) on 768-d → 95.0% var  train=(144296, 138)  val=(36074, 138)
+    n=200  clinicalbert      PCA(200) on 768-d → 98.4% var  train=(144296, 238)  val=(36074, 238)
+    n= 10  sentencebert      PCA(10) on 384-d → 43.0% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  sentencebert      PCA(50) on 384-d → 81.9% var  train=(144296, 88)  val=(36074, 88)
+    n=100  sentencebert      PCA(100) on 384-d → 93.5% var  train=(144296, 138)  val=(36074, 138)
+    n=200  sentencebert      PCA(200) on 384-d → 99.0% var  train=(144296, 238)  val=(36074, 238)
+
+----------------------------------------------------------------------
+  FOLD 1  train=144,296  val=36,074
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=21,330  val_NaN=5,371
+      → Filled 21,330 train NaN
+      → Filled 5,371 val NaN
+    [avg_BMI]  type=regression  train_NaN=48,959  val_NaN=12,218
+      → Filled 48,959 train NaN
+      → Filled 12,218 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,176  val_NaN=508
+      → Filled 2,176 train NaN
+      → Filled 508 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 1 train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 1 train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 1 train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.7  std=109.7  min=0.0  max=1810.0
+  y_val  : mean=135.0  std=109.8  min=3.0  max=1557.0
+
+  only_structured  train=(144296, 38)  val=(36074, 38)  (stored once, no text features)
+
+  Classical text encodings (one entry per n value):
+    n= 10  label     train=(144296, 48)  val=(36074, 48)
+    n= 10  tfidf     train=(144296, 48)  val=(36074, 48)
+    n= 10  count     train=(144296, 48)  val=(36074, 48)
+    n= 50  label     train=(144296, 88)  val=(36074, 88)
+    n= 50  tfidf     train=(144296, 88)  val=(36074, 88)
+    n= 50  count     train=(144296, 88)  val=(36074, 88)
+    n=100  label     train=(144296, 138)  val=(36074, 138)
+    n=100  tfidf     train=(144296, 138)  val=(36074, 138)
+    n=100  count     train=(144296, 138)  val=(36074, 138)
+    n=200  label     train=(144296, 238)  val=(36074, 238)
+    n=200  tfidf     train=(144296, 238)  val=(36074, 238)
+    n=200  count     train=(144296, 238)  val=(36074, 238)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n= 10  clinicalbert      PCA(10) on 768-d → 60.8% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  clinicalbert      PCA(50) on 768-d → 88.4% var  train=(144296, 88)  val=(36074, 88)
+    n=100  clinicalbert      PCA(100) on 768-d → 95.0% var  train=(144296, 138)  val=(36074, 138)
+    n=200  clinicalbert      PCA(200) on 768-d → 98.4% var  train=(144296, 238)  val=(36074, 238)
+    n= 10  sentencebert      PCA(10) on 384-d → 43.1% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  sentencebert      PCA(50) on 384-d → 81.9% var  train=(144296, 88)  val=(36074, 88)
+    n=100  sentencebert      PCA(100) on 384-d → 93.5% var  train=(144296, 138)  val=(36074, 138)
+    n=200  sentencebert      PCA(200) on 384-d → 99.0% var  train=(144296, 238)  val=(36074, 238)
+
+----------------------------------------------------------------------
+  FOLD 2  train=144,296  val=36,074
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=21,431  val_NaN=5,270
+      → Filled 21,431 train NaN
+      → Filled 5,270 val NaN
+    [avg_BMI]  type=regression  train_NaN=48,980  val_NaN=12,197
+      → Filled 48,980 train NaN
+      → Filled 12,197 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,104  val_NaN=580
+      → Filled 2,104 train NaN
+      → Filled 580 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 2 train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 2 train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 2 train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.4  std=109.7  min=3.0  max=1810.0
+  y_val  : mean=135.9  std=109.6  min=0.0  max=1569.0
+
+  only_structured  train=(144296, 38)  val=(36074, 38)  (stored once, no text features)
+
+  Classical text encodings (one entry per n value):
+    n= 10  label     train=(144296, 48)  val=(36074, 48)
+    n= 10  tfidf     train=(144296, 48)  val=(36074, 48)
+    n= 10  count     train=(144296, 48)  val=(36074, 48)
+    n= 50  label     train=(144296, 88)  val=(36074, 88)
+    n= 50  tfidf     train=(144296, 88)  val=(36074, 88)
+    n= 50  count     train=(144296, 88)  val=(36074, 88)
+    n=100  label     train=(144296, 138)  val=(36074, 138)
+    n=100  tfidf     train=(144296, 138)  val=(36074, 138)
+    n=100  count     train=(144296, 138)  val=(36074, 138)
+    n=200  label     train=(144296, 238)  val=(36074, 238)
+    n=200  tfidf     train=(144296, 238)  val=(36074, 238)
+    n=200  count     train=(144296, 238)  val=(36074, 238)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n= 10  clinicalbert      PCA(10) on 768-d → 60.8% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  clinicalbert      PCA(50) on 768-d → 88.4% var  train=(144296, 88)  val=(36074, 88)
+    n=100  clinicalbert      PCA(100) on 768-d → 95.0% var  train=(144296, 138)  val=(36074, 138)
+    n=200  clinicalbert      PCA(200) on 768-d → 98.4% var  train=(144296, 238)  val=(36074, 238)
+    n= 10  sentencebert      PCA(10) on 384-d → 43.1% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  sentencebert      PCA(50) on 384-d → 81.9% var  train=(144296, 88)  val=(36074, 88)
+    n=100  sentencebert      PCA(100) on 384-d → 93.5% var  train=(144296, 138)  val=(36074, 138)
+    n=200  sentencebert      PCA(200) on 384-d → 99.0% var  train=(144296, 238)  val=(36074, 238)
+
+----------------------------------------------------------------------
+  FOLD 3  train=144,296  val=36,074
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=21,268  val_NaN=5,433
+      → Filled 21,268 train NaN
+      → Filled 5,433 val NaN
+    [avg_BMI]  type=regression  train_NaN=48,834  val_NaN=12,343
+      → Filled 48,834 train NaN
+      → Filled 12,343 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,170  val_NaN=514
+      → Filled 2,170 train NaN
+      → Filled 514 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 3 train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 3 train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 3 train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.6  std=109.8  min=0.0  max=1810.0
+  y_val  : mean=135.1  std=109.4  min=7.0  max=1640.0
+
+  only_structured  train=(144296, 38)  val=(36074, 38)  (stored once, no text features)
+
+  Classical text encodings (one entry per n value):
+    n= 10  label     train=(144296, 48)  val=(36074, 48)
+    n= 10  tfidf     train=(144296, 48)  val=(36074, 48)
+    n= 10  count     train=(144296, 48)  val=(36074, 48)
+    n= 50  label     train=(144296, 88)  val=(36074, 88)
+    n= 50  tfidf     train=(144296, 88)  val=(36074, 88)
+    n= 50  count     train=(144296, 88)  val=(36074, 88)
+    n=100  label     train=(144296, 138)  val=(36074, 138)
+    n=100  tfidf     train=(144296, 138)  val=(36074, 138)
+    n=100  count     train=(144296, 138)  val=(36074, 138)
+    n=200  label     train=(144296, 238)  val=(36074, 238)
+    n=200  tfidf     train=(144296, 238)  val=(36074, 238)
+    n=200  count     train=(144296, 238)  val=(36074, 238)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n= 10  clinicalbert      PCA(10) on 768-d → 60.8% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  clinicalbert      PCA(50) on 768-d → 88.4% var  train=(144296, 88)  val=(36074, 88)
+    n=100  clinicalbert      PCA(100) on 768-d → 94.9% var  train=(144296, 138)  val=(36074, 138)
+    n=200  clinicalbert      PCA(200) on 768-d → 98.4% var  train=(144296, 238)  val=(36074, 238)
+    n= 10  sentencebert      PCA(10) on 384-d → 43.0% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  sentencebert      PCA(50) on 384-d → 81.9% var  train=(144296, 88)  val=(36074, 88)
+    n=100  sentencebert      PCA(100) on 384-d → 93.5% var  train=(144296, 138)  val=(36074, 138)
+    n=200  sentencebert      PCA(200) on 384-d → 99.0% var  train=(144296, 238)  val=(36074, 238)
+
+----------------------------------------------------------------------
+  FOLD 4  train=144,296  val=36,074
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=21,262  val_NaN=5,439
+      → Filled 21,262 train NaN
+      → Filled 5,439 val NaN
+    [avg_BMI]  type=regression  train_NaN=48,927  val_NaN=12,250
+      → Filled 48,927 train NaN
+      → Filled 12,250 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,131  val_NaN=553
+      → Filled 2,131 train NaN
+      → Filled 553 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 4 train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 4 train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 4 train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.4  std=109.6  min=0.0  max=1810.0
+  y_val  : mean=135.9  std=110.3  min=9.0  max=1730.0
+
+  only_structured  train=(144296, 38)  val=(36074, 38)  (stored once, no text features)
+
+  Classical text encodings (one entry per n value):
+    n= 10  label     train=(144296, 48)  val=(36074, 48)
+    n= 10  tfidf     train=(144296, 48)  val=(36074, 48)
+    n= 10  count     train=(144296, 48)  val=(36074, 48)
+    n= 50  label     train=(144296, 88)  val=(36074, 88)
+    n= 50  tfidf     train=(144296, 88)  val=(36074, 88)
+    n= 50  count     train=(144296, 88)  val=(36074, 88)
+    n=100  label     train=(144296, 138)  val=(36074, 138)
+    n=100  tfidf     train=(144296, 138)  val=(36074, 138)
+    n=100  count     train=(144296, 138)  val=(36074, 138)
+    n=200  label     train=(144296, 238)  val=(36074, 238)
+    n=200  tfidf     train=(144296, 238)  val=(36074, 238)
+    n=200  count     train=(144296, 238)  val=(36074, 238)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n= 10  clinicalbert      PCA(10) on 768-d → 60.7% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  clinicalbert      PCA(50) on 768-d → 88.4% var  train=(144296, 88)  val=(36074, 88)
+    n=100  clinicalbert      PCA(100) on 768-d → 94.9% var  train=(144296, 138)  val=(36074, 138)
+    n=200  clinicalbert      PCA(200) on 768-d → 98.4% var  train=(144296, 238)  val=(36074, 238)
+    n= 10  sentencebert      PCA(10) on 384-d → 43.0% var  train=(144296, 48)  val=(36074, 48)
+    n= 50  sentencebert      PCA(50) on 384-d → 81.8% var  train=(144296, 88)  val=(36074, 88)
+    n=100  sentencebert      PCA(100) on 384-d → 93.5% var  train=(144296, 138)  val=(36074, 138)
+    n=200  sentencebert      PCA(200) on 384-d → 99.0% var  train=(144296, 238)  val=(36074, 238)
+
+======================================================================
+  SUMMARY
+======================================================================
+  encoded_matrices : 210 rows
+  encoded_targets  : 10 rows
+
+  Fold   Split    Encoding             n_features     Rows   Cols
+  --------------------------------------------------------------
+  0      train    clinicalbert                 10  144,296     48
+  0      train    clinicalbert                 50  144,296     88
+  0      train    clinicalbert                100  144,296    138
+  0      train    clinicalbert                200  144,296    238
+  0      train    count                        10  144,296     48
+  0      train    count                        50  144,296     88
+  0      train    count                       100  144,296    138
+  0      train    count                       200  144,296    238
+  0      train    label                        10  144,296     48
+  0      train    label                        50  144,296     88
+  0      train    label                       100  144,296    138
+  0      train    label                       200  144,296    238
+  0      train    only_structured               0  144,296     38
+  0      train    sentencebert                 10  144,296     48
+  0      train    sentencebert                 50  144,296     88
+  0      train    sentencebert                100  144,296    138
+  0      train    sentencebert                200  144,296    238
+  0      train    tfidf                        10  144,296     48
+  0      train    tfidf                        50  144,296     88
+  0      train    tfidf                       100  144,296    138
+  0      train    tfidf                       200  144,296    238
+  0      val      clinicalbert                 10   36,074     48
+  0      val      clinicalbert                 50   36,074     88
+  0      val      clinicalbert                100   36,074    138
+  0      val      clinicalbert                200   36,074    238
+  0      val      count                        10   36,074     48
+  0      val      count                        50   36,074     88
+  0      val      count                       100   36,074    138
+  0      val      count                       200   36,074    238
+  0      val      label                        10   36,074     48
+  0      val      label                        50   36,074     88
+  0      val      label                       100   36,074    138
+  0      val      label                       200   36,074    238
+  0      val      only_structured               0   36,074     38
+  0      val      sentencebert                 10   36,074     48
+  0      val      sentencebert                 50   36,074     88
+  0      val      sentencebert                100   36,074    138
+  0      val      sentencebert                200   36,074    238
+  0      val      tfidf                        10   36,074     48
+  0      val      tfidf                        50   36,074     88
+  0      val      tfidf                       100   36,074    138
+  0      val      tfidf                       200   36,074    238
+  1      train    clinicalbert                 10  144,296     48
+  1      train    clinicalbert                 50  144,296     88
+  1      train    clinicalbert                100  144,296    138
+  1      train    clinicalbert                200  144,296    238
+  1      train    count                        10  144,296     48
+  1      train    count                        50  144,296     88
+  1      train    count                       100  144,296    138
+  1      train    count                       200  144,296    238
+  1      train    label                        10  144,296     48
+  1      train    label                        50  144,296     88
+  1      train    label                       100  144,296    138
+  1      train    label                       200  144,296    238
+  1      train    only_structured               0  144,296     38
+  1      train    sentencebert                 10  144,296     48
+  1      train    sentencebert                 50  144,296     88
+  1      train    sentencebert                100  144,296    138
+  1      train    sentencebert                200  144,296    238
+  1      train    tfidf                        10  144,296     48
+  1      train    tfidf                        50  144,296     88
+  1      train    tfidf                       100  144,296    138
+  1      train    tfidf                       200  144,296    238
+  1      val      clinicalbert                 10   36,074     48
+  1      val      clinicalbert                 50   36,074     88
+  1      val      clinicalbert                100   36,074    138
+  1      val      clinicalbert                200   36,074    238
+  1      val      count                        10   36,074     48
+  1      val      count                        50   36,074     88
+  1      val      count                       100   36,074    138
+  1      val      count                       200   36,074    238
+  1      val      label                        10   36,074     48
+  1      val      label                        50   36,074     88
+  1      val      label                       100   36,074    138
+  1      val      label                       200   36,074    238
+  1      val      only_structured               0   36,074     38
+  1      val      sentencebert                 10   36,074     48
+  1      val      sentencebert                 50   36,074     88
+  1      val      sentencebert                100   36,074    138
+  1      val      sentencebert                200   36,074    238
+  1      val      tfidf                        10   36,074     48
+  1      val      tfidf                        50   36,074     88
+  1      val      tfidf                       100   36,074    138
+  1      val      tfidf                       200   36,074    238
+  2      train    clinicalbert                 10  144,296     48
+  2      train    clinicalbert                 50  144,296     88
+  2      train    clinicalbert                100  144,296    138
+  2      train    clinicalbert                200  144,296    238
+  2      train    count                        10  144,296     48
+  2      train    count                        50  144,296     88
+  2      train    count                       100  144,296    138
+  2      train    count                       200  144,296    238
+  2      train    label                        10  144,296     48
+  2      train    label                        50  144,296     88
+  2      train    label                       100  144,296    138
+  2      train    label                       200  144,296    238
+  2      train    only_structured               0  144,296     38
+  2      train    sentencebert                 10  144,296     48
+  2      train    sentencebert                 50  144,296     88
+  2      train    sentencebert                100  144,296    138
+  2      train    sentencebert                200  144,296    238
+  2      train    tfidf                        10  144,296     48
+  2      train    tfidf                        50  144,296     88
+  2      train    tfidf                       100  144,296    138
+  2      train    tfidf                       200  144,296    238
+  2      val      clinicalbert                 10   36,074     48
+  2      val      clinicalbert                 50   36,074     88
+  2      val      clinicalbert                100   36,074    138
+  2      val      clinicalbert                200   36,074    238
+  2      val      count                        10   36,074     48
+  2      val      count                        50   36,074     88
+  2      val      count                       100   36,074    138
+  2      val      count                       200   36,074    238
+  2      val      label                        10   36,074     48
+  2      val      label                        50   36,074     88
+  2      val      label                       100   36,074    138
+  2      val      label                       200   36,074    238
+  2      val      only_structured               0   36,074     38
+  2      val      sentencebert                 10   36,074     48
+  2      val      sentencebert                 50   36,074     88
+  2      val      sentencebert                100   36,074    138
+  2      val      sentencebert                200   36,074    238
+  2      val      tfidf                        10   36,074     48
+  2      val      tfidf                        50   36,074     88
+  2      val      tfidf                       100   36,074    138
+  2      val      tfidf                       200   36,074    238
+  3      train    clinicalbert                 10  144,296     48
+  3      train    clinicalbert                 50  144,296     88
+  3      train    clinicalbert                100  144,296    138
+  3      train    clinicalbert                200  144,296    238
+  3      train    count                        10  144,296     48
+  3      train    count                        50  144,296     88
+  3      train    count                       100  144,296    138
+  3      train    count                       200  144,296    238
+  3      train    label                        10  144,296     48
+  3      train    label                        50  144,296     88
+  3      train    label                       100  144,296    138
+  3      train    label                       200  144,296    238
+  3      train    only_structured               0  144,296     38
+  3      train    sentencebert                 10  144,296     48
+  3      train    sentencebert                 50  144,296     88
+  3      train    sentencebert                100  144,296    138
+  3      train    sentencebert                200  144,296    238
+  3      train    tfidf                        10  144,296     48
+  3      train    tfidf                        50  144,296     88
+  3      train    tfidf                       100  144,296    138
+  3      train    tfidf                       200  144,296    238
+  3      val      clinicalbert                 10   36,074     48
+  3      val      clinicalbert                 50   36,074     88
+  3      val      clinicalbert                100   36,074    138
+  3      val      clinicalbert                200   36,074    238
+  3      val      count                        10   36,074     48
+  3      val      count                        50   36,074     88
+  3      val      count                       100   36,074    138
+  3      val      count                       200   36,074    238
+  3      val      label                        10   36,074     48
+  3      val      label                        50   36,074     88
+  3      val      label                       100   36,074    138
+  3      val      label                       200   36,074    238
+  3      val      only_structured               0   36,074     38
+  3      val      sentencebert                 10   36,074     48
+  3      val      sentencebert                 50   36,074     88
+  3      val      sentencebert                100   36,074    138
+  3      val      sentencebert                200   36,074    238
+  3      val      tfidf                        10   36,074     48
+  3      val      tfidf                        50   36,074     88
+  3      val      tfidf                       100   36,074    138
+  3      val      tfidf                       200   36,074    238
+  4      train    clinicalbert                 10  144,296     48
+  4      train    clinicalbert                 50  144,296     88
+  4      train    clinicalbert                100  144,296    138
+  4      train    clinicalbert                200  144,296    238
+  4      train    count                        10  144,296     48
+  4      train    count                        50  144,296     88
+  4      train    count                       100  144,296    138
+  4      train    count                       200  144,296    238
+  4      train    label                        10  144,296     48
+  4      train    label                        50  144,296     88
+  4      train    label                       100  144,296    138
+  4      train    label                       200  144,296    238
+  4      train    only_structured               0  144,296     38
+  4      train    sentencebert                 10  144,296     48
+  4      train    sentencebert                 50  144,296     88
+  4      train    sentencebert                100  144,296    138
+  4      train    sentencebert                200  144,296    238
+  4      train    tfidf                        10  144,296     48
+  4      train    tfidf                        50  144,296     88
+  4      train    tfidf                       100  144,296    138
+  4      train    tfidf                       200  144,296    238
+  4      val      clinicalbert                 10   36,074     48
+  4      val      clinicalbert                 50   36,074     88
+  4      val      clinicalbert                100   36,074    138
+  4      val      clinicalbert                200   36,074    238
+  4      val      count                        10   36,074     48
+  4      val      count                        50   36,074     88
+  4      val      count                       100   36,074    138
+  4      val      count                       200   36,074    238
+  4      val      label                        10   36,074     48
+  4      val      label                        50   36,074     88
+  4      val      label                       100   36,074    138
+  4      val      label                       200   36,074    238
+  4      val      only_structured               0   36,074     38
+  4      val      sentencebert                 10   36,074     48
+  4      val      sentencebert                 50   36,074     88
+  4      val      sentencebert                100   36,074    138
+  4      val      sentencebert                200   36,074    238
+  4      val      tfidf                        10   36,074     48
+  4      val      tfidf                        50   36,074     88
+  4      val      tfidf                       100   36,074    138
+  4      val      tfidf                       200   36,074    238
+  DB size: 8953.7 MB
+  ✅ Stage 03 complete.  Log → ./results/03_fold_encoding.log

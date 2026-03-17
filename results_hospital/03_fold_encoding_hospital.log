@@ -1,0 +1,225 @@
+
+======================================================================
+  STAGE 03 — FOLD ENCODING  [HOSPITAL]
+======================================================================
+  ✅ BERT cache  clinicalbert_scheduled_procedure.npy  shape=(180370, 768)
+  ✅ BERT cache  sentencebert_scheduled_procedure.npy  shape=(180370, 384)
+  Loaded   : 180,370 rows × 20 columns
+  Excluded : ['procedure_minutes', 'procedure_time', 'induction_time', 'emergence_time', 'scheduled_duration']  (intraoperative leakage)
+  6 folds loaded from 'fold_hospital'
+    Fold 0  [OB_VH]  train=179,678  val=692
+    Fold 1  [Procedure_Room]  train=180,368  val=2
+    Fold 2  [Recovery]  train=180,368  val=2
+    Fold 3  [UH_OR]  train=109,010  val=71,360
+    Fold 4  [VH_OR]  train=76,352  val=104,018
+    Fold 5  [VSC_OR]  train=176,074  val=4,296
+
+======================================================================
+  ENCODING LOOP [HOSPITAL] — fold → impute → one-hot → encode → save
+======================================================================
+
+----------------------------------------------------------------------
+  FOLD 0  [OB_VH]  train=179,678  val=692
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=26,697  val_NaN=4
+      → Filled 26,697 train NaN
+      → Filled 4 val NaN
+    [avg_BMI]  type=regression  train_NaN=60,583  val_NaN=594
+      → Filled 60,583 train NaN
+      → Filled 594 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,684  val_NaN=0
+      → Filled 2,684 train NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'OB_VH' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'OB_VH' train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'OB_VH' train categories: ['Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.7  std=109.8  min=0.0  max=1810.0
+  y_val  : mean=84.2  std=58.4  min=12.0  max=392.0
+
+  only_structured  train=(179678, 37)  val=(692, 37)
+
+  Classical text encodings:
+    n=100  label     train=(179678, 137)  val=(692, 137)
+    n=100  tfidf     train=(179678, 137)  val=(692, 137)
+    n=100  count     train=(179678, 137)  val=(692, 137)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 95.0% var  train=(179678, 137)  val=(692, 137)
+    n=100  sentencebert      PCA(100) → 93.5% var  train=(179678, 137)  val=(692, 137)
+
+----------------------------------------------------------------------
+  FOLD 1  [Procedure_Room]  train=180,368  val=2
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=26,701  val_NaN=0
+      → Filled 26,701 train NaN
+    [avg_BMI]  type=regression  train_NaN=61,176  val_NaN=1
+      → Filled 61,176 train NaN
+      → Filled 1 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,684  val_NaN=0
+      → Filled 2,684 train NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'Procedure_Room' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'Procedure_Room' train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'Procedure_Room' train categories: ['OB_VH', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.5  std=109.7  min=0.0  max=1810.0
+  y_val  : mean=368.5  std=98.5  min=270.0  max=467.0
+
+  only_structured  train=(180368, 37)  val=(2, 37)
+
+  Classical text encodings:
+    n=100  label     train=(180368, 137)  val=(2, 137)
+    n=100  tfidf     train=(180368, 137)  val=(2, 137)
+    n=100  count     train=(180368, 137)  val=(2, 137)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 95.0% var  train=(180368, 137)  val=(2, 137)
+    n=100  sentencebert      PCA(100) → 93.5% var  train=(180368, 137)  val=(2, 137)
+
+----------------------------------------------------------------------
+  FOLD 2  [Recovery]  train=180,368  val=2
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=26,700  val_NaN=1
+      → Filled 26,700 train NaN
+      → Filled 1 val NaN
+    [avg_BMI]  type=regression  train_NaN=61,177  val_NaN=0
+      → Filled 61,177 train NaN
+    [anesthetic_type]  type=classification  train_NaN=2,684  val_NaN=0
+      → Filled 2,684 train NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'Recovery' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'Recovery' train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'Recovery' train categories: ['OB_VH', 'Procedure_Room', 'UH_OR', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=135.5  std=109.7  min=0.0  max=1810.0
+  y_val  : mean=181.5  std=113.5  min=68.0  max=295.0
+
+  only_structured  train=(180368, 37)  val=(2, 37)
+
+  Classical text encodings:
+    n=100  label     train=(180368, 137)  val=(2, 137)
+    n=100  tfidf     train=(180368, 137)  val=(2, 137)
+    n=100  count     train=(180368, 137)  val=(2, 137)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 95.0% var  train=(180368, 137)  val=(2, 137)
+    n=100  sentencebert      PCA(100) → 93.5% var  train=(180368, 137)  val=(2, 137)
+
+----------------------------------------------------------------------
+  FOLD 3  [UH_OR]  train=109,010  val=71,360
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=25,552  val_NaN=1,149
+      → Filled 25,552 train NaN
+      → Filled 1,149 val NaN
+    [avg_BMI]  type=regression  train_NaN=34,307  val_NaN=26,870
+      → Filled 34,307 train NaN
+      → Filled 26,870 val NaN
+    [anesthetic_type]  type=classification  train_NaN=1,818  val_NaN=866
+      → Filled 1,818 train NaN
+      → Filled 866 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'UH_OR' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'UH_OR' train categories: ['Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'UH_OR' train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'VH_OR', 'VSC_OR']
+
+  y_train: mean=115.0  std=97.8  min=0.0  max=1810.0
+  y_val  : mean=166.9  std=119.1  min=0.0  max=1730.0
+
+  only_structured  train=(109010, 36)  val=(71360, 36)
+
+  Classical text encodings:
+    n=100  label     train=(109010, 136)  val=(71360, 136)
+    n=100  tfidf     train=(109010, 136)  val=(71360, 136)
+    n=100  count     train=(109010, 136)  val=(71360, 136)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 95.4% var  train=(109010, 136)  val=(71360, 136)
+    n=100  sentencebert      PCA(100) → 94.2% var  train=(109010, 136)  val=(71360, 136)
+
+----------------------------------------------------------------------
+  FOLD 4  [VH_OR]  train=76,352  val=104,018
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=1,309  val_NaN=25,392
+      → Filled 1,309 train NaN
+      → Filled 25,392 val NaN
+    [avg_BMI]  type=regression  train_NaN=27,596  val_NaN=33,581
+      → Filled 27,596 train NaN
+      → Filled 33,581 val NaN
+    [anesthetic_type]  type=classification  train_NaN=889  val_NaN=1,795
+      → Filled 889 train NaN
+      → Filled 1,795 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'VH_OR' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'VH_OR' train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Orthopedic', 'Plastic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'VH_OR' train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VSC_OR']
+
+  y_train: mean=160.8  std=117.9  min=0.0  max=1730.0
+  y_val  : mean=116.9  std=99.3  min=0.0  max=1810.0
+
+  only_structured  train=(76352, 34)  val=(104018, 34)
+
+  Classical text encodings:
+    n=100  label     train=(76352, 134)  val=(104018, 134)
+    n=100  tfidf     train=(76352, 134)  val=(104018, 134)
+    n=100  count     train=(76352, 134)  val=(104018, 134)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 97.1% var  train=(76352, 134)  val=(104018, 134)
+    n=100  sentencebert      PCA(100) → 96.4% var  train=(76352, 134)  val=(104018, 134)
+
+----------------------------------------------------------------------
+  FOLD 5  [VSC_OR]  train=176,074  val=4,296
+----------------------------------------------------------------------
+
+  Imputation (fit on training rows only):
+    [age_at_discharge]  type=regression  train_NaN=26,546  val_NaN=155
+      → Filled 26,546 train NaN
+      → Filled 155 val NaN
+    [avg_BMI]  type=regression  train_NaN=61,046  val_NaN=131
+      → Filled 61,046 train NaN
+      → Filled 131 val NaN
+    [anesthetic_type]  type=classification  train_NaN=2,661  val_NaN=23
+      → Filled 2,661 train NaN
+      → Filled 23 val NaN
+
+  Fold-wise one-hot (train categories only — no leakage):
+    [anesthetic_type]  fold 'VSC_OR' train categories: ['General', 'Local', 'Neuraxial', 'Regional', 'Sedation']
+    [case_service]  fold 'VSC_OR' train categories: ['Cardiac_Surgery', 'Dental_Surgery', 'ENT', 'General_Surgery', 'Neurosurgery', 'OB_GYN', 'Ophthalmology', 'Orthopedic', 'Plastic_Surgery', 'Surgical_Oncology', 'Thoracic_Surgery', 'Urology', 'Vascular_Surgery']
+    [surgical_location]  fold 'VSC_OR' train categories: ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR']
+
+  y_train: mean=137.1  std=110.4  min=0.0  max=1810.0
+  y_val  : mean=72.5  std=39.9  min=3.0  max=322.0
+
+  only_structured  train=(176074, 37)  val=(4296, 37)
+
+  Classical text encodings:
+    n=100  label     train=(176074, 137)  val=(4296, 137)
+    n=100  tfidf     train=(176074, 137)  val=(4296, 137)
+    n=100  count     train=(176074, 137)  val=(4296, 137)
+
+  BERT PCA encodings (PCA fit on train fold only — no leakage):
+    n=100  clinicalbert      PCA(100) → 94.9% var  train=(176074, 137)  val=(4296, 137)
+    n=100  sentencebert      PCA(100) → 93.4% var  train=(176074, 137)  val=(4296, 137)
+
+======================================================================
+  SUMMARY
+======================================================================
+  encoded_matrices : 72  |  encoded_targets : 12
+  DB size : 2975.4 MB
+  ✅ Stage 03 [HOSPITAL] complete.  Log → ./results_hospital/03_fold_encoding_hospital.log

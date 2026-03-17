@@ -2,7 +2,6 @@
 *.pyc
 .env
 .DS_Store
-*.log
 .vscode/
 *.tmp
 *.db

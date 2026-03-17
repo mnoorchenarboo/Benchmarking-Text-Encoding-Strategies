@@ -1,0 +1,674 @@
+
+======================================================================
+  STAGE 04 — MODELING
+======================================================================
+
+======================================================================
+  CONFIG SNAPSHOT
+======================================================================
+  FEATURES_PER_COL  = [10, 50, 100, 200]  (all values in DB — no PCA in Stage 04)
+  N_SPLITS          = 5  /  RANDOM_STATE = 42
+  N_TRIALS          = 50  /  TUNE_SET_FRACTION = 0.25
+  MLP: AdamW + BatchNorm + variable depth (1-3 layers, Optuna-tuned)
+  MLP training: epochs=200/30  batch=512  clipnorm=1.0
+  EarlyStopping: patience=15  |  ReduceLROnPlateau: factor=0.5  patience=5  min_lr=1e-06
+  MLP Optuna subset: 5000 rows per trial
+  XGBoost: device=cuda  early_stopping_rounds=20
+  RF max_features options: ['sqrt', 'log2', 0.3, 0.5, 0.7]
+
+  Per-model artifacts saved to: ./results/<model_name>.log  and  ./results/<model_name>.pdf
+
+======================================================================
+  VERIFY PREREQUISITES
+======================================================================
+  ✅ ./data/surgical_data.db
+  ✅ ./data/fold_encoded.db
+  ✅ Fold indices loaded (5 folds)
+  ✅ 21 (encoding, n) combos found in ./data/fold_encoded.db
+
+======================================================================
+  MODEL SELECTION  (always asked — safe for multi-terminal use)
+======================================================================
+  [0]  🚀 Run ALL models  [default]
+  [1]  📏 Linear Regression
+  [2]  🏔️  Ridge Regression
+  [3]  🪢 Lasso Regression
+  [4]  🌲 Random Forest
+  [5]  ⚡ XGBoost
+  [6]  🧠 MLP Neural Network
+
+  Select models (e.g. 1,3,5 or Enter for all): 
+  Running: ['mlp']
+
+  ⚠  625 already-completed (fold, encoding, n_features, model) combo(s) found in result.db.
+  [Enter]  Continue  — skip completed combos, only run the remaining  [default]
+  [r]      Replace   — overwrite ALL combos from scratch (deletes existing rows)
+  Your choice:   ✅ Resume mode — 625 completed combo(s) will be skipped.
+
+======================================================================
+  MAIN LOOP — fold → load encodings (all n values) → model
+======================================================================
+
+----------------------------------------------------------------------
+  FOLD 0  train=144,296  val=36,074
+----------------------------------------------------------------------
+  y_train: mean=135.5  std=109.8  min=0.0  max=1730.0
+  y_val  : mean=135.7  std=109.4  min=9.0  max=1810.0
+
+  Loading all matrices for fold 0 (one DB connection)...
+    only_structured      n=  0  train=(144296, 38)  val=(36074, 38)
+    label                n= 10  train=(144296, 48)  val=(36074, 48)
+    label                n= 50  train=(144296, 88)  val=(36074, 88)
+    label                n=100  train=(144296, 138)  val=(36074, 138)
+    label                n=200  train=(144296, 238)  val=(36074, 238)
+    tfidf                n= 10  train=(144296, 48)  val=(36074, 48)
+    tfidf                n= 50  train=(144296, 88)  val=(36074, 88)
+    tfidf                n=100  train=(144296, 138)  val=(36074, 138)
+    tfidf                n=200  train=(144296, 238)  val=(36074, 238)
+    count                n= 10  train=(144296, 48)  val=(36074, 48)
+    count                n= 50  train=(144296, 88)  val=(36074, 88)
+    count                n=100  train=(144296, 138)  val=(36074, 138)
+    count                n=200  train=(144296, 238)  val=(36074, 238)
+    clinicalbert         n= 10  train=(144296, 48)  val=(36074, 48)
+    clinicalbert         n= 50  train=(144296, 88)  val=(36074, 88)
+    clinicalbert         n=100  train=(144296, 138)  val=(36074, 138)
+    clinicalbert         n=200  train=(144296, 238)  val=(36074, 238)
+    sentencebert         n= 10  train=(144296, 48)  val=(36074, 48)
+    sentencebert         n= 50  train=(144296, 88)  val=(36074, 88)
+    sentencebert         n=100  train=(144296, 138)  val=(36074, 138)
+    sentencebert         n=200  train=(144296, 238)  val=(36074, 238)
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: ONLY_STRUCTURED  no text
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+----------------------------------------------------------------------
+  FOLD 1  train=144,296  val=36,074
+----------------------------------------------------------------------
+  y_train: mean=135.7  std=109.7  min=0.0  max=1810.0
+  y_val  : mean=135.0  std=109.8  min=3.0  max=1557.0
+
+  Loading all matrices for fold 1 (one DB connection)...
+    only_structured      n=  0  train=(144296, 38)  val=(36074, 38)
+    label                n= 10  train=(144296, 48)  val=(36074, 48)
+    label                n= 50  train=(144296, 88)  val=(36074, 88)
+    label                n=100  train=(144296, 138)  val=(36074, 138)
+    label                n=200  train=(144296, 238)  val=(36074, 238)
+    tfidf                n= 10  train=(144296, 48)  val=(36074, 48)
+    tfidf                n= 50  train=(144296, 88)  val=(36074, 88)
+    tfidf                n=100  train=(144296, 138)  val=(36074, 138)
+    tfidf                n=200  train=(144296, 238)  val=(36074, 238)
+    count                n= 10  train=(144296, 48)  val=(36074, 48)
+    count                n= 50  train=(144296, 88)  val=(36074, 88)
+    count                n=100  train=(144296, 138)  val=(36074, 138)
+    count                n=200  train=(144296, 238)  val=(36074, 238)
+    clinicalbert         n= 10  train=(144296, 48)  val=(36074, 48)
+    clinicalbert         n= 50  train=(144296, 88)  val=(36074, 88)
+    clinicalbert         n=100  train=(144296, 138)  val=(36074, 138)
+    clinicalbert         n=200  train=(144296, 238)  val=(36074, 238)
+    sentencebert         n= 10  train=(144296, 48)  val=(36074, 48)
+    sentencebert         n= 50  train=(144296, 88)  val=(36074, 88)
+    sentencebert         n=100  train=(144296, 138)  val=(36074, 138)
+    sentencebert         n=200  train=(144296, 238)  val=(36074, 238)
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: ONLY_STRUCTURED  no text
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+----------------------------------------------------------------------
+  FOLD 2  train=144,296  val=36,074
+----------------------------------------------------------------------
+  y_train: mean=135.4  std=109.7  min=3.0  max=1810.0
+  y_val  : mean=135.9  std=109.6  min=0.0  max=1569.0
+
+  Loading all matrices for fold 2 (one DB connection)...
+    only_structured      n=  0  train=(144296, 38)  val=(36074, 38)
+    label                n= 10  train=(144296, 48)  val=(36074, 48)
+    label                n= 50  train=(144296, 88)  val=(36074, 88)
+    label                n=100  train=(144296, 138)  val=(36074, 138)
+    label                n=200  train=(144296, 238)  val=(36074, 238)
+    tfidf                n= 10  train=(144296, 48)  val=(36074, 48)
+    tfidf                n= 50  train=(144296, 88)  val=(36074, 88)
+    tfidf                n=100  train=(144296, 138)  val=(36074, 138)
+    tfidf                n=200  train=(144296, 238)  val=(36074, 238)
+    count                n= 10  train=(144296, 48)  val=(36074, 48)
+    count                n= 50  train=(144296, 88)  val=(36074, 88)
+    count                n=100  train=(144296, 138)  val=(36074, 138)
+    count                n=200  train=(144296, 238)  val=(36074, 238)
+    clinicalbert         n= 10  train=(144296, 48)  val=(36074, 48)
+    clinicalbert         n= 50  train=(144296, 88)  val=(36074, 88)
+    clinicalbert         n=100  train=(144296, 138)  val=(36074, 138)
+    clinicalbert         n=200  train=(144296, 238)  val=(36074, 238)
+    sentencebert         n= 10  train=(144296, 48)  val=(36074, 48)
+    sentencebert         n= 50  train=(144296, 88)  val=(36074, 88)
+    sentencebert         n=100  train=(144296, 138)  val=(36074, 138)
+    sentencebert         n=200  train=(144296, 238)  val=(36074, 238)
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: ONLY_STRUCTURED  no text
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+----------------------------------------------------------------------
+  FOLD 3  train=144,296  val=36,074
+----------------------------------------------------------------------
+  y_train: mean=135.6  std=109.8  min=0.0  max=1810.0
+  y_val  : mean=135.1  std=109.4  min=7.0  max=1640.0
+
+  Loading all matrices for fold 3 (one DB connection)...
+    only_structured      n=  0  train=(144296, 38)  val=(36074, 38)
+    label                n= 10  train=(144296, 48)  val=(36074, 48)
+    label                n= 50  train=(144296, 88)  val=(36074, 88)
+    label                n=100  train=(144296, 138)  val=(36074, 138)
+    label                n=200  train=(144296, 238)  val=(36074, 238)
+    tfidf                n= 10  train=(144296, 48)  val=(36074, 48)
+    tfidf                n= 50  train=(144296, 88)  val=(36074, 88)
+    tfidf                n=100  train=(144296, 138)  val=(36074, 138)
+    tfidf                n=200  train=(144296, 238)  val=(36074, 238)
+    count                n= 10  train=(144296, 48)  val=(36074, 48)
+    count                n= 50  train=(144296, 88)  val=(36074, 88)
+    count                n=100  train=(144296, 138)  val=(36074, 138)
+    count                n=200  train=(144296, 238)  val=(36074, 238)
+    clinicalbert         n= 10  train=(144296, 48)  val=(36074, 48)
+    clinicalbert         n= 50  train=(144296, 88)  val=(36074, 88)
+    clinicalbert         n=100  train=(144296, 138)  val=(36074, 138)
+    clinicalbert         n=200  train=(144296, 238)  val=(36074, 238)
+    sentencebert         n= 10  train=(144296, 48)  val=(36074, 48)
+    sentencebert         n= 50  train=(144296, 88)  val=(36074, 88)
+    sentencebert         n=100  train=(144296, 138)  val=(36074, 138)
+    sentencebert         n=200  train=(144296, 238)  val=(36074, 238)
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: ONLY_STRUCTURED  no text
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+----------------------------------------------------------------------
+  FOLD 4  train=144,296  val=36,074
+----------------------------------------------------------------------
+  y_train: mean=135.4  std=109.6  min=0.0  max=1810.0
+  y_val  : mean=135.9  std=110.3  min=9.0  max=1730.0
+
+  Loading all matrices for fold 4 (one DB connection)...
+    only_structured      n=  0  train=(144296, 38)  val=(36074, 38)
+    label                n= 10  train=(144296, 48)  val=(36074, 48)
+    label                n= 50  train=(144296, 88)  val=(36074, 88)
+    label                n=100  train=(144296, 138)  val=(36074, 138)
+    label                n=200  train=(144296, 238)  val=(36074, 238)
+    tfidf                n= 10  train=(144296, 48)  val=(36074, 48)
+    tfidf                n= 50  train=(144296, 88)  val=(36074, 88)
+    tfidf                n=100  train=(144296, 138)  val=(36074, 138)
+    tfidf                n=200  train=(144296, 238)  val=(36074, 238)
+    count                n= 10  train=(144296, 48)  val=(36074, 48)
+    count                n= 50  train=(144296, 88)  val=(36074, 88)
+    count                n=100  train=(144296, 138)  val=(36074, 138)
+    count                n=200  train=(144296, 238)  val=(36074, 238)
+    clinicalbert         n= 10  train=(144296, 48)  val=(36074, 48)
+    clinicalbert         n= 50  train=(144296, 88)  val=(36074, 88)
+    clinicalbert         n=100  train=(144296, 138)  val=(36074, 138)
+    clinicalbert         n=200  train=(144296, 238)  val=(36074, 238)
+    sentencebert         n= 10  train=(144296, 48)  val=(36074, 48)
+    sentencebert         n= 50  train=(144296, 88)  val=(36074, 88)
+    sentencebert         n=100  train=(144296, 138)  val=(36074, 138)
+    sentencebert         n=200  train=(144296, 238)  val=(36074, 238)
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: CLINICALBERT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: COUNT  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: LABEL  n=200
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: ONLY_STRUCTURED  no text
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=10
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=50
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=100
+    ⏭  mlp — already in result.db, skipping.
+
+  ────────────────────────────────────────────────────────────
+  Encoding: SENTENCEBERT  n=200
+    🔧 mlp
+      Optuna best MSE=3143.04  params={'n_layers': 1, 'activation': 'relu', 'lr': 0.008221606781172008, 'weight_decay': 2.7515757420562548e-06, 'units1': 119, 'dropout1': 0.30094350147201954, 'units2': 52, 'dropout2': 0.1181438665544304, 'units3': 44, 'dropout3': 0.39366282658944673, 'input_dim': 238}
+      ✅ MAE=  34.14  SMAPE= 31.99%  R²=0.7977  RMSE=  49.63  train=43.02s  infer=0.1062s
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=10
+    🔧 mlp
+      Optuna best MSE=4634.25  params={'n_layers': 1, 'activation': 'elu', 'lr': 0.00912792259195151, 'weight_decay': 2.6830668352010376e-06, 'units1': 81, 'dropout1': 0.2913871879349394, 'units2': 54, 'dropout2': 0.18603294216737223, 'units3': 49, 'dropout3': 0.28580702205924813, 'input_dim': 48}
+      ✅ MAE=  35.75  SMAPE= 30.19%  R²=0.7712  RMSE=  52.78  train=52.67s  infer=0.0905s
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=50
+    🔧 mlp
+      Optuna best MSE=3967.71  params={'n_layers': 1, 'activation': 'elu', 'lr': 0.008980895512216197, 'weight_decay': 0.0033984644287948585, 'units1': 84, 'dropout1': 0.19036691609853298, 'units2': 110, 'dropout2': 0.12459987700871081, 'units3': 53, 'dropout3': 0.1754405799623237, 'input_dim': 88}
+      ✅ MAE=  31.68  SMAPE= 26.52%  R²=0.8094  RMSE=  48.17  train=55.86s  infer=0.0927s
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=100
+    🔧 mlp
+      Optuna best MSE=3444.50  params={'n_layers': 1, 'activation': 'elu', 'lr': 0.009196061773813642, 'weight_decay': 1.7696375943949197e-05, 'units1': 47, 'dropout1': 0.05402741076171838, 'units2': 95, 'dropout2': 0.15638348294052118, 'units3': 57, 'dropout3': 0.06984844114541731, 'input_dim': 138}
+      ✅ MAE=  30.12  SMAPE= 25.08%  R²=0.8229  RMSE=  46.44  train=50.51s  infer=0.0915s
+
+  ────────────────────────────────────────────────────────────
+  Encoding: TFIDF  n=200
+    🔧 mlp
+      Optuna best MSE=3557.07  params={'n_layers': 1, 'activation': 'elu', 'lr': 0.006793073228964917, 'weight_decay': 3.2382086522840666e-05, 'units1': 166, 'dropout1': 0.3778959111606188, 'units2': 120, 'dropout2': 0.18297480205248562, 'units3': 21, 'dropout3': 0.1520004056936743, 'input_dim': 238}
+      ✅ MAE=  28.43  SMAPE= 23.63%  R²=0.8383  RMSE=  44.38  train=87.72s  infer=0.1166s
+
+======================================================================
+  PER-MODEL ARTIFACTS  (.log + .pdf)
+======================================================================
+
+  Generating artifacts for: mlp
+  📝 mlp.log  → ./results\mlp.log
+  📊 mlp.pdf  → ./results\mlp.pdf  (2 pages)
+
+======================================================================
+  FINAL AGGREGATED SUMMARY  (mean ± std across folds)
+======================================================================
+
+  Encoding               n Model            MAE mean   MAE std   SMAPE mean   R² mean   RMSE mean   Train(s)   Infer(s)
+  --------------------------------------------------------------------------------------------------------------
+  clinicalbert         200 mlp                27.829     1.263       23.277    0.8426      43.505     254.65     0.4029
+  sentencebert          50 mlp                28.132     0.594       23.490    0.8427      43.508     235.83     0.3515
+  clinicalbert          50 mlp                28.181     0.895       23.535    0.8416      43.633     122.53     0.1691
+  count                200 mlp                28.344     0.470       23.530    0.8376      44.214     309.99     0.3341
+  tfidf                200 mlp                28.580     0.305       23.758    0.8363      44.392     190.91     0.3219
+  label                200 mlp                29.534     0.741       24.476    0.8249      45.896     177.01     0.2077
+  count                100 mlp                29.970     0.253       25.024    0.8244      45.969     199.36     0.2111
+  tfidf                100 mlp                30.128     0.138       25.129    0.8229      46.165     154.68     0.2486
+  sentencebert          10 mlp                30.386     0.576       25.352    0.8229      46.166     247.99     0.4206
+  sentencebert         100 mlp                30.475     5.785       26.629    0.8187      46.276     245.28     0.4475
+  clinicalbert          10 mlp                31.106     1.010       26.237    0.8173      46.886     119.20     0.1744
+  label                100 mlp                31.109     0.188       25.622    0.8090      47.952     163.94     0.2074
+  clinicalbert         100 mlp                31.170     3.743       27.511    0.8166      46.876     102.09     0.2146
+  count                 50 mlp                31.511     0.363       26.350    0.8101      47.811     145.90     0.1854
+  tfidf                 50 mlp                31.575     0.341       26.417    0.8099      47.831     208.87     0.2301
+  label                 50 mlp                32.721     0.283       27.259    0.7962      49.524     188.35     0.1991
+  sentencebert         200 mlp                32.883     5.051       29.463    0.7970      49.136     148.16     0.3255
+  tfidf                 10 mlp                35.428     0.217       29.888    0.7742      52.136     276.94     0.2143
+  count                 10 mlp                35.437     0.228       29.929    0.7741      52.146     174.60     0.1993
+  label                 10 mlp                35.842     0.527       29.966    0.7681      52.829     159.00     0.2251
+  only_structured    struct mlp                36.556     0.181       30.937    0.7647      53.221     186.17     0.2585
+
+======================================================================
+  BEST CONFIGURATION PER METRIC
+======================================================================
+  Best mae_mean              : encoding=clinicalbert  n_features=200  model=mlp  value=27.8295
+  Best smape_mean            : encoding=clinicalbert  n_features=200  model=mlp  value=23.2769
+  Best r2_mean               : encoding=sentencebert  n_features=50  model=mlp  value=0.8427
+  Best train_time_s_mean     : encoding=clinicalbert  n_features=100  model=mlp  value=102.0935
+  Best infer_time_s_mean     : encoding=clinicalbert  n_features=50  model=mlp  value=0.1691
+
+  Results → ./results/result.db
+  Log     → ./results/04_modeling.log
+  ✅ Stage 04 complete.

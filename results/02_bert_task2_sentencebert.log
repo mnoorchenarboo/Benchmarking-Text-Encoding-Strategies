@@ -1,0 +1,12 @@
+
+======================================================================
+  TASK 2 — SENTENCEBERT on 'scheduled_procedure'
+======================================================================
+  Output : ./data/bert_cache\sentencebert_scheduled_procedure.npy
+  Loaded 180,370 texts from 'scheduled_procedure'
+  Loading all-MiniLM-L6-v2...
+
+  Embedding shape : (180370, 384)
+  Elapsed         : 0.33 min
+  ✅ Saved → ./data/bert_cache\sentencebert_scheduled_procedure.npy
+  NOTE: Full 384-d embeddings stored. PCA applied per n in FEATURES_PER_COL=[10, 50, 100, 200] fold-wise in Stage 03.

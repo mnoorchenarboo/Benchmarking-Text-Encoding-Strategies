@@ -1,0 +1,52 @@
+
+======================================================================
+  STAGE 01 — CV FOLD GENERATION  (hospital + temporal)
+======================================================================
+
+======================================================================
+  LOAD CLEAN TABLE
+======================================================================
+  Loaded: 180,370 rows × 25 columns from 'Clean'
+  surgical_location distribution:
+    VH_OR                     104,018  (57.7%)
+    UH_OR                     71,360  (39.6%)
+    VSC_OR                     4,296  (2.4%)
+    OB_VH                        692  (0.4%)
+    Procedure_Room                 2  (0.0%)
+    Recovery                       2  (0.0%)
+
+======================================================================
+  DERIVE case_date FROM RAW CSV  (scheduled_start_dttm via case_id join)
+======================================================================
+  Mapped case_date for 180,370/180,370 rows
+  Date range: 2013-01-02 → 2022-12-30
+
+======================================================================
+  HOSPITAL CV — LEAVE-ONE-LOCATION-OUT
+======================================================================
+  Locations found (6 folds): ['OB_VH', 'Procedure_Room', 'Recovery', 'UH_OR', 'VH_OR', 'VSC_OR']
+  Fold 0  [OB_VH                    ]  train=179,678  val=   692
+  Fold 1  [Procedure_Room           ]  train=180,368  val=     2
+  Fold 2  [Recovery                 ]  train=180,368  val=     2
+  Fold 3  [UH_OR                    ]  train=109,010  val=71,360
+  Fold 4  [VH_OR                    ]  train=76,352  val=104,018
+  Fold 5  [VSC_OR                   ]  train=176,074  val= 4,296
+  ✅ Saved 'fold_hospital' → ./data/surgical_data.db  (6 folds)
+
+======================================================================
+  TEMPORAL CV — EXPANDING TIME-SERIES SPLIT
+======================================================================
+  TimeSeriesSplit: n_splits=5  (expanding window, each val set is a future chunk)
+  Sorted date range: 2013-01-02 → 2022-12-30
+
+  Fold          Train          Val  Val date range
+  -----------------------------------------------------------------
+  0            30,065       30,061  2014-10-01 → 2016-05-27
+  1            60,126       30,061  2016-05-27 → 2017-12-18
+  2            90,187       30,061  2017-12-18 → 2019-07-08
+  3           120,248       30,061  2019-07-08 → 2021-04-20
+  4           150,309       30,061  2021-04-20 → 2022-12-30
+
+  ✅ Saved 'fold_temporal' → ./data/surgical_data.db  (5 folds)
+
+  ✅ Stage 01 complete.  Log → ./results_hospital/01_cv_fold_generation.log
