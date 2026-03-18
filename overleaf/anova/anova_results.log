@@ -1,0 +1,18 @@
+============================================================
+  ANOVA RESULTS — One-way across encoding strategies
+  Effect size: η² — partial eta squared (from F, df_num, df_den)
+  Observational unit: per-model fold-mean; model = within-subject factor.
+============================================================
+
+  Source DB  : ./results/result.db
+  Total rows : 180
+  Encodings  : ['clinicalbert', 'count', 'label', 'only_structured', 'sentencebert', 'tfidf']
+  Models     : ['lasso', 'linear', 'mlp', 'randomforest', 'ridge', 'xgboost']
+  Folds      : [0, 1, 2, 3, 4]
+
+  Metric       F-value       p-raw   p-adj (FDR)        η²
+  ----------------------------------------------------------
+  MSE            67.65      0.0000        0.0000      0.93  **
+  MAE            43.73      0.0000        0.0000      0.90  **
+  R²             68.06      0.0000        0.0000      0.93  **
+  SMAPE          17.21      0.0000        0.0000      0.77  **

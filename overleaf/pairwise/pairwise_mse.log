@@ -1,0 +1,51 @@
+==============================================================================================================
+  Pairwise — MSE  |  correction=fdr_bh  |  n=100
+==============================================================================================================
+  Encoding 1             Encoding 2                Mean 1    Mean 2 Better                 p-raw     p-adj  Sig   Cohen d   Magnitude
+  ------------------------------------------------------------------------------------------------------------
+  Sentence-BERT          ClinicalBERT              2627.6    2614.6 ClinicalBERT          0.8293    0.8293   ns     0.103  negligible
+  Sentence-BERT          TF--IDF                   2627.6    2869.0 Sentence-BERT         0.0095    0.0109    *     2.092       large
+  Sentence-BERT          Count                     2627.6    2862.1 Sentence-BERT         0.0089    0.0109    *     2.128       large
+  Sentence-BERT          Label                     2627.6    2995.4 Sentence-BERT         0.0017    0.0024   **     3.333       large
+  Sentence-BERT          Structured Only           2627.6    3469.9 Sentence-BERT         0.0001    0.0001   **     7.830       large
+  ClinicalBERT           TF--IDF                   2614.6    2869.0 ClinicalBERT          0.0003    0.0004   **     5.281       large
+  ClinicalBERT           Count                     2614.6    2862.1 ClinicalBERT          0.0003    0.0004   **     5.330       large
+  ClinicalBERT           Label                     2614.6    2995.4 ClinicalBERT          0.0000    0.0001   **     8.568       large
+  ClinicalBERT           Structured Only           2614.6    3469.9 ClinicalBERT          0.0000    0.0000   **    20.850       large
+  TF--IDF                Count                     2869.0    2862.1 Count                 0.0922    0.0988   ns     0.986       large
+  TF--IDF                Label                     2869.0    2995.4 TF--IDF               0.0000    0.0001   **     8.353       large
+  TF--IDF                Structured Only           2869.0    3469.9 TF--IDF               0.0000    0.0000   **    36.160       large
+  Count                  Label                     2862.1    2995.4 Count                 0.0000    0.0000   **    13.915       large
+  Count                  Structured Only           2862.1    3469.9 Count                 0.0000    0.0000   **    57.029       large
+  Label                  Structured Only           2995.4    3469.9 Label                 0.0000    0.0000   **    87.213       large
+==============================================================================================================
+
+% ============================================================
+\begin{table}[ht]
+\color{blue}
+\centering
+\fontsize{10}{13}\selectfont
+\caption{Pairwise comparison of encoding methods based on MSE across all models using paired $t$-tests with FDR-BH correction. Cohen's $d$ is reported as effect size (small~$\geq$~0.2, medium~$\geq$~0.5, large~$\geq$~0.8). Significance: * $p_{\text{adj}}<0.05$, ** $p_{\text{adj}}<0.01$.}
+\label{tab:mse_encoding_comparison}
+\begin{tabular}{lllllll}
+\toprule
+Encoding 1 & Encoding 2 & Mean 1 & Mean 2 & Better & \textit{p}-value (adj.) & Cohen's $d$ \\
+\midrule
+Sentence-BERT & ClinicalBERT & 2627.6 & 2614.6 & ClinicalBERT & $0.8293$ & $0.103$ (negligible) \\
+Sentence-BERT & TF--IDF & 2627.6 & 2869.0 & Sentence-BERT & $0.0109$* & $2.092$ (large) \\
+Sentence-BERT & Count & 2627.6 & 2862.1 & Sentence-BERT & $0.0109$* & $2.128$ (large) \\
+Sentence-BERT & Label & 2627.6 & 2995.4 & Sentence-BERT & $0.0024$** & $3.333$ (large) \\
+Sentence-BERT & Structured Only & 2627.6 & 3469.9 & Sentence-BERT & $<0.001$** & $7.830$ (large) \\
+ClinicalBERT & TF--IDF & 2614.6 & 2869.0 & ClinicalBERT & $<0.001$** & $5.281$ (large) \\
+ClinicalBERT & Count & 2614.6 & 2862.1 & ClinicalBERT & $<0.001$** & $5.330$ (large) \\
+ClinicalBERT & Label & 2614.6 & 2995.4 & ClinicalBERT & $<0.001$** & $8.568$ (large) \\
+ClinicalBERT & Structured Only & 2614.6 & 3469.9 & ClinicalBERT & $<0.001$** & $20.850$ (large) \\
+TF--IDF & Count & 2869.0 & 2862.1 & Count & $0.0988$ & $0.986$ (large) \\
+TF--IDF & Label & 2869.0 & 2995.4 & TF--IDF & $<0.001$** & $8.353$ (large) \\
+TF--IDF & Structured Only & 2869.0 & 3469.9 & TF--IDF & $<0.001$** & $36.160$ (large) \\
+Count & Label & 2862.1 & 2995.4 & Count & $<0.001$** & $13.915$ (large) \\
+Count & Structured Only & 2862.1 & 3469.9 & Count & $<0.001$** & $57.029$ (large) \\
+Label & Structured Only & 2995.4 & 3469.9 & Label & $<0.001$** & $87.213$ (large) \\
+\bottomrule
+\end{tabular}
+\end{table}

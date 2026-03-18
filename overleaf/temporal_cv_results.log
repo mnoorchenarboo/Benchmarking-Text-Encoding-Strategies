@@ -1,0 +1,254 @@
+====================================================================================================
+  TEMPORAL CV — RESULTS SUMMARY
+====================================================================================================
+  CV strategy  : Expanding-window TimeSeriesSplit  (k=5)
+  Primary n    : 100 features per text field
+  Models       : ['linear', 'ridge', 'lasso', 'randomforest', 'xgboost', 'mlp']
+  Encodings    : ['only_structured', 'label', 'count', 'tfidf', 'clinicalbert', 'sentencebert']
+
+----------------------------------------------------------------------------------------------------
+  PER-FOLD RESULTS  (n=100, all models)
+----------------------------------------------------------------------------------------------------
+  Model          Encoding              Fold       MAE    SMAPE       R²     RMSE
+  ------------------------------------------------------------------------------
+  linear         Structured only          0    47.056   42.476   0.6645   65.850
+  linear         Structured only          1    46.547   45.509   0.6617   64.666
+  linear         Structured only          2    46.721   47.174   0.6439   63.144
+  linear         Structured only          3    48.550   49.066   0.6038   66.598
+  linear         Structured only          4    48.322   43.665   0.6170   65.789
+  linear         Label                    0    43.011   40.080   0.7038   61.872
+  linear         Label                    1    42.079   42.331   0.7111   59.759
+  linear         Label                    2    42.573   44.667   0.6967   58.276
+  linear         Label                    3    44.142   46.381   0.6608   61.621
+  linear         Label                    4    43.776   41.097   0.6773   60.389
+  linear         Count                    0    42.844   40.088   0.7113   61.090
+  linear         Count                    1    42.092   42.630   0.7117   59.695
+  linear         Count                    2    41.925   43.975   0.7063   57.345
+  linear         Count                    3    43.649   45.782   0.6681   60.958
+  linear         Count                    4    43.744   40.934   0.6766   60.457
+  linear         TF-IDF                   0    42.883   40.085   0.7103   61.192
+  linear         TF-IDF                   1    42.215   42.653   0.7095   59.923
+  linear         TF-IDF                   2    42.113   44.041   0.7027   57.688
+  linear         TF-IDF                   3    43.856   45.816   0.6642   61.313
+  linear         TF-IDF                   4    43.942   40.985   0.6720   60.883
+  linear         ClinicalBERT             0    41.239   39.381   0.7334   58.704
+  linear         ClinicalBERT             1    40.571   41.381   0.7319   57.569
+  linear         ClinicalBERT             2    40.352   42.625   0.7328   54.692
+  linear         ClinicalBERT             3    41.645   43.793   0.6977   58.174
+  linear         ClinicalBERT             4    42.267   40.157   0.6973   58.491
+  linear         Sentence-BERT            0    41.497   39.332   0.7300   59.073
+  linear         Sentence-BERT            1    40.996   41.785   0.7283   57.950
+  linear         Sentence-BERT            2    41.323   43.491   0.7201   55.977
+  linear         Sentence-BERT            3    42.278   44.542   0.6925   58.674
+  linear         Sentence-BERT            4    42.283   39.993   0.6994   58.287
+  ridge          Structured only          0    47.056   42.475   0.6645   65.850
+  ridge          Structured only          1    46.547   45.507   0.6617   64.666
+  ridge          Structured only          2    46.720   47.173   0.6439   63.144
+  ridge          Structured only          3    47.711   46.530   0.6123   65.883
+  ridge          Structured only          4    48.329   43.668   0.6169   65.801
+  ridge          Label                    0    43.049   40.079   0.7039   61.863
+  ridge          Label                    1    42.079   42.330   0.7111   59.759
+  ridge          Label                    2    42.572   44.665   0.6967   58.275
+  ridge          Label                    3    43.342   43.944   0.6685   60.925
+  ridge          Label                    4    43.780   41.100   0.6773   60.394
+  ridge          Count                    0    42.826   40.072   0.7113   61.082
+  ridge          Count                    1    42.095   42.630   0.7117   59.699
+  ridge          Count                    2    41.851   43.903   0.7071   57.267
+  ridge          Count                    3    42.897   43.535   0.6752   60.301
+  ridge          Count                    4    43.657   40.877   0.6781   60.319
+  ridge          TF-IDF                   0    42.868   40.071   0.7103   61.188
+  ridge          TF-IDF                   1    42.208   42.648   0.7096   59.916
+  ridge          TF-IDF                   2    41.956   43.897   0.7047   57.501
+  ridge          TF-IDF                   3    42.935   43.203   0.6732   60.485
+  ridge          TF-IDF                   4    43.668   40.746   0.6753   60.576
+  ridge          ClinicalBERT             0    41.227   39.349   0.7334   58.700
+  ridge          ClinicalBERT             1    40.569   41.377   0.7319   57.570
+  ridge          ClinicalBERT             2    40.350   42.623   0.7328   54.691
+  ridge          ClinicalBERT             3    41.474   43.297   0.6993   58.019
+  ridge          ClinicalBERT             4    42.272   40.159   0.6972   58.503
+  ridge          Sentence-BERT            0    41.475   39.295   0.7301   59.069
+  ridge          Sentence-BERT            1    40.995   41.782   0.7283   57.950
+  ridge          Sentence-BERT            2    41.321   43.489   0.7201   55.976
+  ridge          Sentence-BERT            3    42.203   44.350   0.6932   58.604
+  ridge          Sentence-BERT            4    42.290   39.997   0.6993   58.298
+  lasso          Structured only          0    47.054   42.472   0.6645   65.849
+  lasso          Structured only          1    46.545   45.505   0.6617   64.664
+  lasso          Structured only          2    46.723   47.181   0.6438   63.148
+  lasso          Structured only          3    48.484   48.907   0.6045   66.540
+  lasso          Structured only          4    48.319   43.665   0.6171   65.787
+  lasso          Label                    0    43.044   40.055   0.7038   61.875
+  lasso          Label                    1    42.078   42.318   0.7111   59.755
+  lasso          Label                    2    42.576   44.630   0.6967   58.267
+  lasso          Label                    3    44.184   46.437   0.6604   61.658
+  lasso          Label                    4    43.779   41.089   0.6773   60.390
+  lasso          Count                    0    42.845   40.083   0.7113   61.088
+  lasso          Count                    1    42.110   42.632   0.7117   59.693
+  lasso          Count                    2    41.856   43.909   0.7070   57.270
+  lasso          Count                    3    43.612   45.753   0.6685   60.918
+  lasso          Count                    4    43.653   40.872   0.6782   60.310
+  lasso          TF-IDF                   0    42.893   40.082   0.7103   61.197
+  lasso          TF-IDF                   1    42.222   42.639   0.7096   59.913
+  lasso          TF-IDF                   2    41.954   43.891   0.7047   57.502
+  lasso          TF-IDF                   3    43.701   45.679   0.6661   61.141
+  lasso          TF-IDF                   4    43.667   40.744   0.6754   60.569
+  lasso          ClinicalBERT             0    41.239   39.379   0.7334   58.705
+  lasso          ClinicalBERT             1    40.570   41.380   0.7319   57.570
+  lasso          ClinicalBERT             2    40.351   42.623   0.7328   54.691
+  lasso          ClinicalBERT             3    41.674   43.871   0.6974   58.200
+  lasso          ClinicalBERT             4    42.263   40.154   0.6973   58.488
+  lasso          Sentence-BERT            0    41.497   39.331   0.7300   59.073
+  lasso          Sentence-BERT            1    40.993   41.777   0.7283   57.949
+  lasso          Sentence-BERT            2    41.327   43.510   0.7198   56.009
+  lasso          Sentence-BERT            3    42.313   44.642   0.6922   58.701
+  lasso          Sentence-BERT            4    42.280   39.994   0.6994   58.285
+  randomforest   Structured only          0    37.250   30.683   0.7655   55.054
+  randomforest   Structured only          1    35.909   30.386   0.7703   53.283
+  randomforest   Structured only          2    34.911   29.319   0.7630   51.507
+  randomforest   Structured only          3    36.301   29.631   0.7325   54.727
+  randomforest   Structured only          4    36.401   29.627   0.7479   53.378
+  randomforest   Label                    0    34.608   28.406   0.7870   52.466
+  randomforest   Label                    1    33.362   28.328   0.7944   50.405
+  randomforest   Label                    2    32.905   28.026   0.7888   48.622
+  randomforest   Label                    3    34.520   28.412   0.7570   52.161
+  randomforest   Label                    4    34.262   28.042   0.7721   50.753
+  randomforest   Count                    0    33.642   27.587   0.7971   51.208
+  randomforest   Count                    1    32.676   27.746   0.8016   49.517
+  randomforest   Count                    2    31.926   27.069   0.7988   47.464
+  randomforest   Count                    3    33.576   27.553   0.7653   51.263
+  randomforest   Count                    4    33.918   27.765   0.7764   50.274
+  randomforest   TF-IDF                   0    33.616   27.396   0.7956   51.400
+  randomforest   TF-IDF                   1    32.555   27.633   0.8020   49.467
+  randomforest   TF-IDF                   2    32.012   27.397   0.8012   47.176
+  randomforest   TF-IDF                   3    33.740   27.843   0.7656   51.232
+  randomforest   TF-IDF                   4    33.808   27.678   0.7772   50.184
+  randomforest   ClinicalBERT             0    29.808   24.053   0.8257   47.468
+  randomforest   ClinicalBERT             1    28.877   24.298   0.8319   45.586
+  randomforest   ClinicalBERT             2    27.803   23.517   0.8441   41.779
+  randomforest   ClinicalBERT             3    29.361   23.904   0.8105   46.057
+  randomforest   ClinicalBERT             4    29.354   23.614   0.8176   45.399
+  randomforest   Sentence-BERT            0    29.378   23.574   0.8288   47.038
+  randomforest   Sentence-BERT            1    28.455   23.970   0.8361   45.007
+  randomforest   Sentence-BERT            2    27.690   23.465   0.8451   41.643
+  randomforest   Sentence-BERT            3    29.220   23.854   0.8121   45.861
+  randomforest   Sentence-BERT            4    29.297   23.621   0.8190   45.225
+  xgboost        Structured only          0    37.330   30.647   0.7654   55.066
+  xgboost        Structured only          1    35.378   29.789   0.7754   52.691
+  xgboost        Structured only          2    34.813   29.328   0.7672   51.049
+  xgboost        Structured only          3    35.769   29.244   0.7416   53.786
+  xgboost        Structured only          4    36.046   29.259   0.7503   53.128
+  xgboost        Label                    0    33.219   26.898   0.7974   51.178
+  xgboost        Label                    1    30.932   25.807   0.8141   47.932
+  xgboost        Label                    2    31.143   25.976   0.8023   47.049
+  xgboost        Label                    3    31.888   25.692   0.7800   49.630
+  xgboost        Label                    4    31.949   25.536   0.7877   48.983
+  xgboost        Count                    0    32.014   26.029   0.8101   49.545
+  xgboost        Count                    1    30.325   25.477   0.8212   47.017
+  xgboost        Count                    2    29.809   25.026   0.8197   44.928
+  xgboost        Count                    3    30.853   24.975   0.7918   48.283
+  xgboost        Count                    4    31.054   24.831   0.7989   47.676
+  xgboost        TF-IDF                   0    32.319   26.471   0.8093   49.648
+  xgboost        TF-IDF                   1    30.265   25.347   0.8215   46.973
+  xgboost        TF-IDF                   2    29.834   25.085   0.8211   44.754
+  xgboost        TF-IDF                   3    30.645   24.779   0.7927   48.177
+  xgboost        TF-IDF                   4    30.882   24.794   0.8017   47.338
+  xgboost        ClinicalBERT             0    28.863   23.231   0.8361   46.023
+  xgboost        ClinicalBERT             1    27.856   23.289   0.8425   44.116
+  xgboost        ClinicalBERT             2    26.941   22.507   0.8516   40.756
+  xgboost        ClinicalBERT             3    28.025   22.624   0.8225   44.575
+  xgboost        ClinicalBERT             4    28.412   22.647   0.8255   44.409
+  xgboost        Sentence-BERT            0    28.485   22.955   0.8392   45.595
+  xgboost        Sentence-BERT            1    27.461   23.008   0.8464   43.569
+  xgboost        Sentence-BERT            2    27.281   22.905   0.8490   41.113
+  xgboost        Sentence-BERT            3    27.797   22.467   0.8245   44.323
+  xgboost        Sentence-BERT            4    28.454   22.714   0.8256   44.402
+  mlp            Structured only          0    37.627   31.683   0.7617   55.503
+  mlp            Structured only          1    35.214   29.934   0.7788   52.289
+  mlp            Structured only          2    33.972   28.662   0.7714   50.591
+  mlp            Structured only          3    36.356   30.398   0.7373   54.228
+  mlp            Structured only          4    36.705   30.290   0.7484   53.328
+  mlp            Label                    0    32.125   26.123   0.8038   50.360
+  mlp            Label                    1    30.134   25.289   0.8206   47.095
+  mlp            Label                    2    29.803   24.955   0.8119   45.884
+  mlp            Label                    3    31.524   25.771   0.7848   49.084
+  mlp            Label                    4    31.214   24.958   0.7941   48.246
+  mlp            Count                    0    31.717   26.261   0.8128   49.195
+  mlp            Count                    1    29.359   24.665   0.8299   45.860
+  mlp            Count                    2    28.433   24.184   0.8303   43.586
+  mlp            Count                    3    30.352   25.270   0.7990   47.439
+  mlp            Count                    4    29.990   24.275   0.8123   46.056
+  mlp            TF-IDF                   0    31.937   26.447   0.8102   49.529
+  mlp            TF-IDF                   1    29.359   24.687   0.8298   45.863
+  mlp            TF-IDF                   2    29.356   25.057   0.8253   44.219
+  mlp            TF-IDF                   3    30.395   24.971   0.7979   47.571
+  mlp            TF-IDF                   4    31.086   25.158   0.8032   47.160
+  mlp            ClinicalBERT             0    27.409   22.122   0.8431   45.037
+  mlp            ClinicalBERT             1    27.606   23.526   0.8481   43.337
+  mlp            ClinicalBERT             2    26.107   22.088   0.8585   39.800
+  mlp            ClinicalBERT             3    27.388   22.725   0.8279   43.893
+  mlp            ClinicalBERT             4    27.948   22.541   0.8319   43.587
+  mlp            Sentence-BERT            0    27.375   22.280   0.8451   44.750
+  mlp            Sentence-BERT            1    26.775   22.453   0.8530   42.630
+  mlp            Sentence-BERT            2    26.476   22.355   0.8546   40.349
+  mlp            Sentence-BERT            3    27.143   22.429   0.8329   43.252
+  mlp            Sentence-BERT            4    28.152   22.995   0.8363   43.018
+----------------------------------------------------------------------------------------------------
+  AGGREGATED  (mean ± std across 5 temporal folds)  —  per model × encoding
+----------------------------------------------------------------------------------------------------
+  Model          Encoding               MAE mean     ±  SMAPE mean     ±   R² mean       ±  RMSE mean     ±
+  --------------------------------------------------------------------------------------------------------
+  linear         Structured only          47.439 0.932      45.578 2.646    0.6380  0.0270     65.210 1.345
+  linear         Label                    43.116 0.847      42.911 2.587    0.6900  0.0210     60.383 1.464
+  linear         Count                    42.851 0.847      42.682 2.295    0.6950  0.0210     59.909 1.534
+  linear         TF-IDF                   43.002 0.871      42.716 2.307    0.6920  0.0220     60.200 1.506
+  linear         ClinicalBERT             41.215 0.783      41.468 1.791    0.7190  0.0190     57.526 1.641
+  linear         Sentence-BERT            41.675 0.581      41.829 2.221    0.7140  0.0170     57.992 1.202
+  ridge          Structured only          47.273 0.740      45.071 1.965    0.6400  0.0240     65.069 1.192
+  ridge          Label                    42.964 0.662      42.423 1.910    0.6910  0.0180     60.243 1.343
+  ridge          Count                    42.665 0.716      42.203 1.669    0.6970  0.0180     59.734 1.463
+  ridge          TF-IDF                   42.727 0.673      42.113 1.635    0.6950  0.0190     59.933 1.432
+  ridge          ClinicalBERT             41.178 0.765      41.361 1.646    0.7190  0.0190     57.496 1.628
+  ridge          Sentence-BERT            41.657 0.567      41.783 2.173    0.7140  0.0170     57.979 1.193
+  lasso          Structured only          47.425 0.912      45.546 2.596    0.6380  0.0270     65.198 1.328
+  lasso          Label                    43.132 0.859      42.906 2.609    0.6900  0.0210     60.389 1.477
+  lasso          Count                    42.815 0.830      42.650 2.290    0.6950  0.0200     59.856 1.546
+  lasso          TF-IDF                   42.887 0.804      42.607 2.288    0.6930  0.0210     60.064 1.524
+  lasso          ClinicalBERT             41.220 0.786      41.482 1.817    0.7190  0.0190     57.531 1.644
+  lasso          Sentence-BERT            41.682 0.590      41.851 2.255    0.7140  0.0170     58.003 1.193
+  randomforest   Structured only          36.154 0.850      29.929 0.577    0.7560  0.0160     53.590 1.407
+  randomforest   Label                    33.931 0.757      28.243 0.194    0.7800  0.0150     50.882 1.541
+  randomforest   Count                    33.148 0.827      27.544 0.282    0.7880  0.0160     49.945 1.563
+  randomforest   TF-IDF                   33.146 0.814      27.589 0.193    0.7880  0.0160     49.892 1.711
+  randomforest   ClinicalBERT             29.041 0.766      23.877 0.319    0.8260  0.0130     45.258 2.107
+  randomforest   Sentence-BERT            28.808 0.726      23.697 0.208    0.8280  0.0130     44.955 2.013
+  xgboost        Structured only          35.867 0.940      29.653 0.599    0.7600  0.0140     53.144 1.475
+  xgboost        Label                    31.826 0.898      25.982 0.537    0.7960  0.0130     48.954 1.587
+  xgboost        Count                    30.811 0.829      25.267 0.489    0.8080  0.0130     47.490 1.708
+  xgboost        TF-IDF                   30.789 0.943      25.295 0.697    0.8090  0.0120     47.378 1.792
+  xgboost        ClinicalBERT             28.019 0.717      22.860 0.370    0.8360  0.0120     43.976 1.944
+  xgboost        Sentence-BERT            27.896 0.556      22.810 0.221    0.8370  0.0110     43.800 1.668
+  mlp            Structured only          35.975 1.414      30.193 1.082    0.7600  0.0170     53.188 1.872
+  mlp            Label                    30.960 0.970      25.419 0.516    0.8030  0.0140     48.133 1.733
+  mlp            Count                    29.970 1.218      24.931 0.858    0.8170  0.0130     46.427 2.075
+  mlp            TF-IDF                   30.426 1.119      25.264 0.684    0.8130  0.0140     46.868 1.981
+  mlp            ClinicalBERT             27.292 0.699      22.600 0.585    0.8420  0.0120     43.131 1.972
+  mlp            Sentence-BERT            27.184 0.641      22.502 0.284    0.8440  0.0100     42.800 1.588
+----------------------------------------------------------------------------------------------------
+  AGGREGATED  (mean ± std across 5 folds × 6 models)  —  per encoding only
+----------------------------------------------------------------------------------------------------
+  Encoding               MAE mean     ±  SMAPE mean     ±   R² mean       ±  RMSE mean     ±
+  -------------------------------------------------------------------------------------
+  Structured only          41.689 5.858      37.662 8.041    0.6990  0.0640     59.233 6.172
+  Label                    37.655 5.633      34.647 8.433    0.7420  0.0550     54.831 5.831
+  Count                    37.043 5.967      34.213 8.599    0.7500  0.0580     53.893 6.317
+  TF-IDF                   37.163 5.926      34.264 8.510    0.7480  0.0590     54.056 6.370
+  ClinicalBERT             34.661 6.710      32.275 9.400    0.7770  0.0610     50.820 7.042
+  Sentence-BERT            34.817 7.010      32.412 9.683    0.7750  0.0640     50.922 7.348
+----------------------------------------------------------------------------------------------------
+  BEST CONFIGURATION PER METRIC  (n=100)
+----------------------------------------------------------------------------------------------------
+  Best mae_mean      : model=mlp            encoding=Sentence-BERT        value=27.1840
+  Best smape_mean    : model=mlp            encoding=Sentence-BERT        value=22.5020
+  Best r2_mean       : model=mlp            encoding=Sentence-BERT        value=0.8440
+  Best rmse_mean     : model=mlp            encoding=Sentence-BERT        value=42.8000
+====================================================================================================
+  Log saved → ./Overleaf/temporal_cv_results.log

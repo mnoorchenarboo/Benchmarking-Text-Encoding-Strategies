@@ -1,0 +1,331 @@
+% ============================================================
+% appendix_metrics_table.log
+% One table per model — include in Overleaf with:
+%   \input{appendix_metrics_table}
+% Required packages:
+%   \usepackage{booktabs, threeparttable}
+% ============================================================
+
+% Table 1: Linear Regression
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{Linear Regression} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_linear}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 46.66 $\pm$ 0.23 & 64.73 $\pm$ 0.75 & 4190.7 $\pm$ 97.8 & 43.54 $\pm$ 0.31 & 51.74 $\pm$ 0.33 & 0.6519 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.35 $\pm$ 0.29 & 64.43 $\pm$ 0.79 & 4152.0 $\pm$ 101.9 & 43.51 $\pm$ 0.36 & 51.37 $\pm$ 0.39 & 0.6552 $\pm$ 0.0071 \\
+\quad 50 & 43.70 $\pm$ 0.23 & 61.31 $\pm$ 0.75 & 3759.3 $\pm$ 91.8 & 41.96 $\pm$ 0.41 & 48.47 $\pm$ 0.42 & 0.6878 $\pm$ 0.0065 \\
+\quad 100 & 42.69 $\pm$ 0.19 & 60.42 $\pm$ 0.76 & 3650.5 $\pm$ 91.5 & 41.35 $\pm$ 0.33 & 47.06 $\pm$ 0.35 & 0.6968 $\pm$ 0.0065 \\
+\quad 200 & 39.14 $\pm$ 0.26 & 56.70 $\pm$ 0.84 & 3215.4 $\pm$ 95.5 & 37.92 $\pm$ 0.40 & 42.28 $\pm$ 0.49 & 0.7329 $\pm$ 0.0070 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 46.33 $\pm$ 0.23 & 64.38 $\pm$ 0.77 & 4145.4 $\pm$ 99.8 & 43.33 $\pm$ 0.29 & 51.30 $\pm$ 0.31 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.61 $\pm$ 0.23 & 61.68 $\pm$ 0.75 & 3805.1 $\pm$ 92.9 & 41.49 $\pm$ 0.35 & 47.58 $\pm$ 0.31 & 0.6840 $\pm$ 0.0066 \\
+\quad 100 & 41.90 $\pm$ 0.14 & 59.62 $\pm$ 0.69 & 3554.6 $\pm$ 83.0 & 40.36 $\pm$ 0.24 & 45.66 $\pm$ 0.25 & 0.7048 $\pm$ 0.0059 \\
+\quad 200 & 38.92 $\pm$ 0.14 & 56.20 $\pm$ 0.83 & 3158.6 $\pm$ 93.7 & 37.76 $\pm$ 0.23 & 41.87 $\pm$ 0.21 & 0.7377 $\pm$ 0.0074 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.33 $\pm$ 0.22 & 64.38 $\pm$ 0.77 & 4144.9 $\pm$ 99.5 & 43.33 $\pm$ 0.29 & 51.31 $\pm$ 0.31 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.35 $\pm$ 0.26 & 61.30 $\pm$ 0.77 & 3758.4 $\pm$ 94.6 & 41.42 $\pm$ 0.35 & 47.47 $\pm$ 0.32 & 0.6878 $\pm$ 0.0067 \\
+\quad 100 & 41.87 $\pm$ 0.15 & 59.50 $\pm$ 0.70 & 3541.2 $\pm$ 83.9 & 40.41 $\pm$ 0.22 & 45.79 $\pm$ 0.24 & 0.7059 $\pm$ 0.0060 \\
+\quad 200 & 39.12 $\pm$ 0.15 & 56.32 $\pm$ 0.83 & 3172.6 $\pm$ 93.8 & 37.96 $\pm$ 0.24 & 42.23 $\pm$ 0.26 & 0.7365 $\pm$ 0.0072 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.64 $\pm$ 0.21 & 63.51 $\pm$ 0.74 & 4033.8 $\pm$ 94.0 & 43.25 $\pm$ 0.31 & 50.27 $\pm$ 0.34 & 0.6650 $\pm$ 0.0065 \\
+\quad 50 & 42.48 $\pm$ 0.16 & 59.85 $\pm$ 0.74 & 3582.7 $\pm$ 88.9 & 41.01 $\pm$ 0.28 & 46.04 $\pm$ 0.27 & 0.7024 $\pm$ 0.0066 \\
+\quad 100 & 40.31 $\pm$ 0.09 & 57.26 $\pm$ 0.79 & 3278.9 $\pm$ 90.6 & 39.41 $\pm$ 0.24 & 43.64 $\pm$ 0.25 & 0.7277 $\pm$ 0.0070 \\
+\quad 200 & 37.90 $\pm$ 0.08 & 54.65 $\pm$ 0.79 & 2986.8 $\pm$ 86.1 & 36.98 $\pm$ 0.17 & 40.40 $\pm$ 0.19 & 0.7519 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.48 $\pm$ 0.25 & 63.36 $\pm$ 0.76 & 4014.8 $\pm$ 96.4 & 43.32 $\pm$ 0.35 & 50.24 $\pm$ 0.35 & 0.6665 $\pm$ 0.0067 \\
+\quad 50 & 43.07 $\pm$ 0.19 & 60.53 $\pm$ 0.74 & 3663.7 $\pm$ 89.7 & 41.69 $\pm$ 0.32 & 46.69 $\pm$ 0.30 & 0.6957 $\pm$ 0.0064 \\
+\quad 100 & 40.56 $\pm$ 0.16 & 57.62 $\pm$ 0.73 & 3320.7 $\pm$ 84.9 & 39.66 $\pm$ 0.26 & 44.12 $\pm$ 0.26 & 0.7242 $\pm$ 0.0063 \\
+\quad 200 & 38.11 $\pm$ 0.10 & 54.87 $\pm$ 0.86 & 3011.2 $\pm$ 95.1 & 37.34 $\pm$ 0.19 & 40.96 $\pm$ 0.14 & 0.7499 $\pm$ 0.0074 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 2: Ridge Regression
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{Ridge Regression} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_ridge}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 46.65 $\pm$ 0.22 & 64.73 $\pm$ 0.75 & 4190.8 $\pm$ 97.7 & 43.52 $\pm$ 0.31 & 51.73 $\pm$ 0.33 & 0.6519 $\pm$ 0.0067 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.35 $\pm$ 0.28 & 64.43 $\pm$ 0.79 & 4152.2 $\pm$ 101.8 & 43.50 $\pm$ 0.35 & 51.37 $\pm$ 0.39 & 0.6551 $\pm$ 0.0071 \\
+\quad 50 & 43.69 $\pm$ 0.23 & 61.31 $\pm$ 0.75 & 3759.3 $\pm$ 91.9 & 41.95 $\pm$ 0.42 & 48.46 $\pm$ 0.42 & 0.6878 $\pm$ 0.0065 \\
+\quad 100 & 42.69 $\pm$ 0.19 & 60.42 $\pm$ 0.76 & 3650.6 $\pm$ 91.7 & 41.34 $\pm$ 0.34 & 47.05 $\pm$ 0.35 & 0.6968 $\pm$ 0.0065 \\
+\quad 200 & 39.14 $\pm$ 0.26 & 56.70 $\pm$ 0.84 & 3215.4 $\pm$ 95.5 & 37.92 $\pm$ 0.40 & 42.28 $\pm$ 0.49 & 0.7329 $\pm$ 0.0070 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 46.32 $\pm$ 0.22 & 64.38 $\pm$ 0.77 & 4145.6 $\pm$ 99.7 & 43.31 $\pm$ 0.29 & 51.29 $\pm$ 0.31 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.53 $\pm$ 0.26 & 61.61 $\pm$ 0.78 & 3795.8 $\pm$ 95.9 & 41.42 $\pm$ 0.36 & 47.51 $\pm$ 0.32 & 0.6847 $\pm$ 0.0067 \\
+\quad 100 & 41.82 $\pm$ 0.14 & 59.54 $\pm$ 0.69 & 3545.3 $\pm$ 82.9 & 40.27 $\pm$ 0.25 & 45.58 $\pm$ 0.26 & 0.7055 $\pm$ 0.0059 \\
+\quad 200 & 38.82 $\pm$ 0.14 & 56.09 $\pm$ 0.84 & 3147.0 $\pm$ 95.3 & 37.65 $\pm$ 0.24 & 41.77 $\pm$ 0.24 & 0.7386 $\pm$ 0.0074 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.32 $\pm$ 0.22 & 64.38 $\pm$ 0.77 & 4145.1 $\pm$ 99.4 & 43.31 $\pm$ 0.29 & 51.30 $\pm$ 0.31 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.33 $\pm$ 0.26 & 61.30 $\pm$ 0.77 & 3757.8 $\pm$ 94.8 & 41.39 $\pm$ 0.35 & 47.46 $\pm$ 0.32 & 0.6879 $\pm$ 0.0067 \\
+\quad 100 & 41.79 $\pm$ 0.15 & 59.43 $\pm$ 0.71 & 3531.8 $\pm$ 84.3 & 40.33 $\pm$ 0.23 & 45.71 $\pm$ 0.25 & 0.7067 $\pm$ 0.0061 \\
+\quad 200 & 39.04 $\pm$ 0.15 & 56.24 $\pm$ 0.83 & 3163.2 $\pm$ 93.8 & 37.86 $\pm$ 0.24 & 42.13 $\pm$ 0.26 & 0.7373 $\pm$ 0.0072 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.64 $\pm$ 0.21 & 63.51 $\pm$ 0.74 & 4033.9 $\pm$ 93.9 & 43.23 $\pm$ 0.32 & 50.26 $\pm$ 0.35 & 0.6650 $\pm$ 0.0065 \\
+\quad 50 & 42.48 $\pm$ 0.16 & 59.85 $\pm$ 0.74 & 3582.8 $\pm$ 88.9 & 41.00 $\pm$ 0.27 & 46.04 $\pm$ 0.26 & 0.7024 $\pm$ 0.0066 \\
+\quad 100 & 40.31 $\pm$ 0.09 & 57.26 $\pm$ 0.79 & 3279.0 $\pm$ 90.7 & 39.40 $\pm$ 0.23 & 43.63 $\pm$ 0.24 & 0.7277 $\pm$ 0.0070 \\
+\quad 200 & 37.89 $\pm$ 0.08 & 54.65 $\pm$ 0.79 & 2986.8 $\pm$ 86.2 & 36.95 $\pm$ 0.19 & 40.38 $\pm$ 0.21 & 0.7519 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.47 $\pm$ 0.25 & 63.36 $\pm$ 0.76 & 4014.8 $\pm$ 96.4 & 43.30 $\pm$ 0.35 & 50.22 $\pm$ 0.35 & 0.6665 $\pm$ 0.0067 \\
+\quad 50 & 43.06 $\pm$ 0.19 & 60.53 $\pm$ 0.74 & 3663.9 $\pm$ 89.9 & 41.67 $\pm$ 0.33 & 46.67 $\pm$ 0.31 & 0.6957 $\pm$ 0.0065 \\
+\quad 100 & 40.56 $\pm$ 0.15 & 57.62 $\pm$ 0.74 & 3320.9 $\pm$ 85.2 & 39.65 $\pm$ 0.25 & 44.11 $\pm$ 0.26 & 0.7242 $\pm$ 0.0064 \\
+\quad 200 & 38.11 $\pm$ 0.10 & 54.87 $\pm$ 0.86 & 3011.3 $\pm$ 95.4 & 37.32 $\pm$ 0.21 & 40.94 $\pm$ 0.17 & 0.7499 $\pm$ 0.0074 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 3: Lasso Regression
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{Lasso Regression} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_lasso}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 46.65 $\pm$ 0.22 & 64.73 $\pm$ 0.76 & 4190.8 $\pm$ 98.1 & 43.52 $\pm$ 0.30 & 51.72 $\pm$ 0.32 & 0.6519 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.35 $\pm$ 0.29 & 64.43 $\pm$ 0.79 & 4152.0 $\pm$ 101.9 & 43.51 $\pm$ 0.36 & 51.36 $\pm$ 0.39 & 0.6552 $\pm$ 0.0071 \\
+\quad 50 & 43.69 $\pm$ 0.23 & 61.31 $\pm$ 0.75 & 3759.3 $\pm$ 91.9 & 41.96 $\pm$ 0.42 & 48.46 $\pm$ 0.42 & 0.6878 $\pm$ 0.0065 \\
+\quad 100 & 42.69 $\pm$ 0.19 & 60.42 $\pm$ 0.76 & 3650.6 $\pm$ 91.5 & 41.35 $\pm$ 0.33 & 47.05 $\pm$ 0.35 & 0.6968 $\pm$ 0.0065 \\
+\quad 200 & 39.15 $\pm$ 0.26 & 56.70 $\pm$ 0.84 & 3215.5 $\pm$ 95.7 & 37.92 $\pm$ 0.40 & 42.30 $\pm$ 0.49 & 0.7329 $\pm$ 0.0070 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 46.32 $\pm$ 0.23 & 64.38 $\pm$ 0.78 & 4145.5 $\pm$ 100.0 & 43.32 $\pm$ 0.30 & 51.28 $\pm$ 0.31 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.54 $\pm$ 0.26 & 61.61 $\pm$ 0.78 & 3795.9 $\pm$ 95.9 & 41.43 $\pm$ 0.36 & 47.52 $\pm$ 0.32 & 0.6847 $\pm$ 0.0067 \\
+\quad 100 & 41.83 $\pm$ 0.14 & 59.54 $\pm$ 0.70 & 3545.4 $\pm$ 83.2 & 40.28 $\pm$ 0.24 & 45.58 $\pm$ 0.26 & 0.7055 $\pm$ 0.0060 \\
+\quad 200 & 38.84 $\pm$ 0.15 & 56.09 $\pm$ 0.84 & 3147.0 $\pm$ 95.1 & 37.67 $\pm$ 0.24 & 41.79 $\pm$ 0.24 & 0.7386 $\pm$ 0.0074 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 46.32 $\pm$ 0.22 & 64.38 $\pm$ 0.77 & 4145.1 $\pm$ 99.9 & 43.32 $\pm$ 0.29 & 51.30 $\pm$ 0.30 & 0.6557 $\pm$ 0.0069 \\
+\quad 50 & 43.34 $\pm$ 0.26 & 61.30 $\pm$ 0.77 & 3757.7 $\pm$ 94.7 & 41.41 $\pm$ 0.35 & 47.46 $\pm$ 0.32 & 0.6879 $\pm$ 0.0067 \\
+\quad 100 & 41.80 $\pm$ 0.15 & 59.43 $\pm$ 0.71 & 3531.8 $\pm$ 84.5 & 40.34 $\pm$ 0.23 & 45.71 $\pm$ 0.24 & 0.7067 $\pm$ 0.0061 \\
+\quad 200 & 39.05 $\pm$ 0.15 & 56.24 $\pm$ 0.83 & 3163.2 $\pm$ 93.7 & 37.87 $\pm$ 0.25 & 42.15 $\pm$ 0.27 & 0.7373 $\pm$ 0.0072 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.63 $\pm$ 0.22 & 63.51 $\pm$ 0.74 & 4033.8 $\pm$ 94.0 & 43.23 $\pm$ 0.35 & 50.23 $\pm$ 0.35 & 0.6650 $\pm$ 0.0065 \\
+\quad 50 & 42.47 $\pm$ 0.15 & 59.85 $\pm$ 0.74 & 3582.9 $\pm$ 89.3 & 40.99 $\pm$ 0.25 & 46.02 $\pm$ 0.26 & 0.7024 $\pm$ 0.0067 \\
+\quad 100 & 40.31 $\pm$ 0.09 & 57.26 $\pm$ 0.79 & 3279.1 $\pm$ 91.0 & 39.39 $\pm$ 0.21 & 43.62 $\pm$ 0.24 & 0.7276 $\pm$ 0.0070 \\
+\quad 200 & 37.91 $\pm$ 0.08 & 54.65 $\pm$ 0.79 & 2986.9 $\pm$ 86.1 & 36.98 $\pm$ 0.17 & 40.41 $\pm$ 0.19 & 0.7519 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 45.46 $\pm$ 0.26 & 63.36 $\pm$ 0.76 & 4015.0 $\pm$ 96.5 & 43.28 $\pm$ 0.38 & 50.20 $\pm$ 0.36 & 0.6665 $\pm$ 0.0068 \\
+\quad 50 & 43.06 $\pm$ 0.19 & 60.53 $\pm$ 0.74 & 3663.8 $\pm$ 89.7 & 41.65 $\pm$ 0.32 & 46.66 $\pm$ 0.30 & 0.6957 $\pm$ 0.0064 \\
+\quad 100 & 40.55 $\pm$ 0.15 & 57.62 $\pm$ 0.74 & 3320.8 $\pm$ 85.2 & 39.62 $\pm$ 0.23 & 44.09 $\pm$ 0.25 & 0.7242 $\pm$ 0.0063 \\
+\quad 200 & 38.12 $\pm$ 0.10 & 54.87 $\pm$ 0.86 & 3011.2 $\pm$ 95.0 & 37.33 $\pm$ 0.20 & 40.96 $\pm$ 0.14 & 0.7499 $\pm$ 0.0074 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 4: Random Forest
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{Random Forest} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_randomforest}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 35.17 $\pm$ 0.16 & 52.27 $\pm$ 0.87 & 2733.2 $\pm$ 90.4 & 29.30 $\pm$ 0.19 & 36.19 $\pm$ 0.36 & 0.7730 $\pm$ 0.0066 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 34.58 $\pm$ 0.13 & 51.91 $\pm$ 0.93 & 2695.8 $\pm$ 96.5 & 28.56 $\pm$ 0.08 & 35.12 $\pm$ 0.22 & 0.7761 $\pm$ 0.0072 \\
+\quad 50 & 33.08 $\pm$ 0.19 & 50.07 $\pm$ 0.86 & 2507.3 $\pm$ 86.0 & 27.59 $\pm$ 0.25 & 33.67 $\pm$ 0.54 & 0.7918 $\pm$ 0.0064 \\
+\quad 100 & 32.86 $\pm$ 0.17 & 49.63 $\pm$ 0.85 & 2463.8 $\pm$ 84.7 & 27.51 $\pm$ 0.19 & 33.59 $\pm$ 0.41 & 0.7954 $\pm$ 0.0062 \\
+\quad 200 & 32.76 $\pm$ 0.20 & 49.31 $\pm$ 0.88 & 2432.2 $\pm$ 86.8 & 27.53 $\pm$ 0.15 & 33.58 $\pm$ 0.25 & 0.7980 $\pm$ 0.0066 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 34.54 $\pm$ 0.15 & 51.71 $\pm$ 0.91 & 2674.9 $\pm$ 93.9 & 28.69 $\pm$ 0.23 & 35.26 $\pm$ 0.49 & 0.7778 $\pm$ 0.0070 \\
+\quad 50 & 32.39 $\pm$ 0.17 & 49.13 $\pm$ 0.91 & 2414.2 $\pm$ 89.7 & 26.87 $\pm$ 0.16 & 32.31 $\pm$ 0.30 & 0.7995 $\pm$ 0.0068 \\
+\quad 100 & 32.05 $\pm$ 0.17 & 48.63 $\pm$ 0.83 & 2365.3 $\pm$ 80.8 & 26.72 $\pm$ 0.22 & 32.10 $\pm$ 0.44 & 0.8035 $\pm$ 0.0060 \\
+\quad 200 & 31.80 $\pm$ 0.19 & 48.24 $\pm$ 0.93 & 2327.6 $\pm$ 89.5 & 26.61 $\pm$ 0.17 & 32.02 $\pm$ 0.33 & 0.8067 $\pm$ 0.0068 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 34.54 $\pm$ 0.23 & 51.68 $\pm$ 0.90 & 2671.6 $\pm$ 92.6 & 28.69 $\pm$ 0.25 & 35.24 $\pm$ 0.47 & 0.7781 $\pm$ 0.0069 \\
+\quad 50 & 32.53 $\pm$ 0.18 & 49.24 $\pm$ 0.89 & 2425.5 $\pm$ 87.8 & 26.99 $\pm$ 0.17 & 32.50 $\pm$ 0.32 & 0.7986 $\pm$ 0.0065 \\
+\quad 100 & 32.12 $\pm$ 0.18 & 48.70 $\pm$ 0.88 & 2372.8 $\pm$ 85.6 & 26.79 $\pm$ 0.16 & 32.20 $\pm$ 0.31 & 0.8029 $\pm$ 0.0064 \\
+\quad 200 & 31.93 $\pm$ 0.28 & 48.33 $\pm$ 0.97 & 2336.4 $\pm$ 94.1 & 26.77 $\pm$ 0.25 & 32.25 $\pm$ 0.46 & 0.8060 $\pm$ 0.0073 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 28.72 $\pm$ 0.14 & 44.75 $\pm$ 0.85 & 2002.9 $\pm$ 75.8 & 23.85 $\pm$ 0.18 & 27.84 $\pm$ 0.40 & 0.8336 $\pm$ 0.0059 \\
+\quad 50 & 27.55 $\pm$ 0.14 & 43.40 $\pm$ 0.88 & 1883.9 $\pm$ 76.2 & 22.79 $\pm$ 0.08 & 26.13 $\pm$ 0.15 & 0.8435 $\pm$ 0.0061 \\
+\quad 100 & 27.55 $\pm$ 0.12 & 43.42 $\pm$ 0.88 & 1886.0 $\pm$ 76.7 & 22.77 $\pm$ 0.08 & 26.10 $\pm$ 0.18 & 0.8434 $\pm$ 0.0061 \\
+\quad 200 & 27.45 $\pm$ 0.10 & 43.38 $\pm$ 0.86 & 1882.4 $\pm$ 75.1 & 22.64 $\pm$ 0.08 & 25.88 $\pm$ 0.18 & 0.8437 $\pm$ 0.0060 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 28.26 $\pm$ 0.12 & 44.22 $\pm$ 0.89 & 1956.3 $\pm$ 79.5 & 23.34 $\pm$ 0.14 & 27.02 $\pm$ 0.26 & 0.8375 $\pm$ 0.0062 \\
+\quad 50 & 27.53 $\pm$ 0.11 & 43.33 $\pm$ 0.84 & 1877.8 $\pm$ 72.6 & 22.80 $\pm$ 0.08 & 26.15 $\pm$ 0.17 & 0.8440 $\pm$ 0.0057 \\
+\quad 100 & 27.42 $\pm$ 0.09 & 43.22 $\pm$ 0.87 & 1868.6 $\pm$ 75.5 & 22.69 $\pm$ 0.10 & 25.98 $\pm$ 0.21 & 0.8448 $\pm$ 0.0060 \\
+\quad 200 & 27.31 $\pm$ 0.09 & 43.14 $\pm$ 0.89 & 1861.8 $\pm$ 76.9 & 22.55 $\pm$ 0.06 & 25.74 $\pm$ 0.16 & 0.8454 $\pm$ 0.0061 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 5: XGBoost
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{XGBoost} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_xgboost}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 34.80 $\pm$ 0.13 & 51.77 $\pm$ 0.74 & 2681.0 $\pm$ 77.0 & 28.84 $\pm$ 0.13 & 35.11 $\pm$ 0.23 & 0.7773 $\pm$ 0.0056 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 34.04 $\pm$ 0.25 & 51.19 $\pm$ 0.93 & 2621.0 $\pm$ 95.2 & 28.01 $\pm$ 0.21 & 33.89 $\pm$ 0.35 & 0.7823 $\pm$ 0.0072 \\
+\quad 50 & 31.66 $\pm$ 0.02 & 48.69 $\pm$ 0.68 & 2371.5 $\pm$ 66.2 & 26.01 $\pm$ 0.08 & 30.87 $\pm$ 0.24 & 0.8030 $\pm$ 0.0049 \\
+\quad 100 & 30.49 $\pm$ 0.26 & 47.50 $\pm$ 0.95 & 2257.0 $\pm$ 90.0 & 24.80 $\pm$ 0.22 & 28.95 $\pm$ 0.39 & 0.8125 $\pm$ 0.0068 \\
+\quad 200 & 29.19 $\pm$ 0.08 & 45.76 $\pm$ 0.77 & 2094.1 $\pm$ 70.5 & 23.78 $\pm$ 0.11 & 27.26 $\pm$ 0.23 & 0.8261 $\pm$ 0.0055 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 33.78 $\pm$ 0.23 & 50.80 $\pm$ 0.92 & 2581.8 $\pm$ 93.4 & 27.96 $\pm$ 0.18 & 33.63 $\pm$ 0.27 & 0.7856 $\pm$ 0.0069 \\
+\quad 50 & 30.58 $\pm$ 0.13 & 47.15 $\pm$ 0.84 & 2223.9 $\pm$ 79.3 & 25.12 $\pm$ 0.11 & 29.22 $\pm$ 0.16 & 0.8153 $\pm$ 0.0061 \\
+\quad 100 & 29.28 $\pm$ 0.22 & 45.51 $\pm$ 0.75 & 2071.9 $\pm$ 68.4 & 24.07 $\pm$ 0.18 & 27.63 $\pm$ 0.29 & 0.8279 $\pm$ 0.0053 \\
+\quad 200 & 28.13 $\pm$ 0.10 & 44.14 $\pm$ 0.91 & 1949.2 $\pm$ 80.9 & 23.06 $\pm$ 0.11 & 26.18 $\pm$ 0.22 & 0.8381 $\pm$ 0.0063 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 33.71 $\pm$ 0.18 & 50.66 $\pm$ 0.88 & 2567.5 $\pm$ 89.0 & 27.88 $\pm$ 0.13 & 33.49 $\pm$ 0.19 & 0.7868 $\pm$ 0.0067 \\
+\quad 50 & 30.60 $\pm$ 0.11 & 47.13 $\pm$ 0.79 & 2221.7 $\pm$ 74.9 & 25.13 $\pm$ 0.16 & 29.24 $\pm$ 0.27 & 0.8155 $\pm$ 0.0056 \\
+\quad 100 & 29.42 $\pm$ 0.15 & 45.61 $\pm$ 0.86 & 2081.2 $\pm$ 78.2 & 24.22 $\pm$ 0.17 & 27.85 $\pm$ 0.32 & 0.8272 $\pm$ 0.0058 \\
+\quad 200 & 28.23 $\pm$ 0.18 & 44.23 $\pm$ 0.96 & 1956.9 $\pm$ 85.0 & 23.17 $\pm$ 0.08 & 26.33 $\pm$ 0.07 & 0.8375 $\pm$ 0.0066 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 26.58 $\pm$ 0.14 & 42.11 $\pm$ 0.88 & 1773.5 $\pm$ 73.9 & 21.76 $\pm$ 0.09 & 24.18 $\pm$ 0.19 & 0.8527 $\pm$ 0.0058 \\
+\quad 50 & 26.44 $\pm$ 0.14 & 41.96 $\pm$ 0.97 & 1761.1 $\pm$ 81.6 & 21.62 $\pm$ 0.12 & 23.96 $\pm$ 0.23 & 0.8537 $\pm$ 0.0065 \\
+\quad 100 & 26.39 $\pm$ 0.11 & 41.87 $\pm$ 0.84 & 1754.0 $\pm$ 70.3 & 21.61 $\pm$ 0.10 & 23.94 $\pm$ 0.13 & 0.8543 $\pm$ 0.0055 \\
+\quad 200 & 26.38 $\pm$ 0.14 & 41.92 $\pm$ 0.88 & 1757.7 $\pm$ 73.9 & 21.58 $\pm$ 0.13 & 23.91 $\pm$ 0.23 & 0.8540 $\pm$ 0.0058 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 26.66 $\pm$ 0.21 & 42.18 $\pm$ 0.96 & 1779.7 $\pm$ 80.7 & 21.82 $\pm$ 0.17 & 24.28 $\pm$ 0.26 & 0.8522 $\pm$ 0.0062 \\
+\quad 50 & 26.46 $\pm$ 0.07 & 42.03 $\pm$ 0.84 & 1767.4 $\pm$ 70.6 & 21.64 $\pm$ 0.08 & 23.98 $\pm$ 0.16 & 0.8532 $\pm$ 0.0055 \\
+\quad 100 & 26.35 $\pm$ 0.16 & 41.84 $\pm$ 0.93 & 1751.0 $\pm$ 77.9 & 21.58 $\pm$ 0.18 & 23.91 $\pm$ 0.32 & 0.8546 $\pm$ 0.0062 \\
+\quad 200 & 26.39 $\pm$ 0.07 & 41.83 $\pm$ 0.90 & 1750.2 $\pm$ 75.2 & 21.62 $\pm$ 0.10 & 23.99 $\pm$ 0.17 & 0.8546 $\pm$ 0.0059 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Table 6: MLP Neural Network
+\begin{table}[htbp]
+\color{blue}
+\centering
+\caption{\revised{Performance metrics for \textbf{MLP Neural Network} across all encoding methods and feature counts (mean $\pm$ SD across five cross-validation folds). MAE and RMSE are in minutes; MSE is in minutes$^{2}$; SMAPE and MAPE are in \%; $R^{2}$ is dimensionless.}}
+\label{tab:appendix_mlp}
+\fontsize{8.5}{10}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{r rrrrrrr}
+\toprule
+\multicolumn{1}{c}{\textbf{$n$}} & \multicolumn{1}{c}{\textbf{MAE}} & \multicolumn{1}{c}{\textbf{RMSE}} & \multicolumn{1}{c}{\textbf{MSE}} & \multicolumn{1}{c}{\textbf{SMAPE (\%)}} & \multicolumn{1}{c}{\textbf{MAPE (\%)}} & \multicolumn{1}{c}{\textbf{$R^{2}$}} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Structured only (no text)}} \\
+\addlinespace[1pt]
+\quad struct & 36.56 $\pm$ 0.18 & 53.22 $\pm$ 0.86 & 2833.1 $\pm$ 91.4 & 30.94 $\pm$ 0.17 & 38.87 $\pm$ 0.34 & 0.7647 $\pm$ 0.0069 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Label Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 35.84 $\pm$ 0.53 & 52.83 $\pm$ 1.27 & 2792.2 $\pm$ 134.5 & 29.97 $\pm$ 0.48 & 37.31 $\pm$ 0.65 & 0.7681 $\pm$ 0.0103 \\
+\quad 50 & 32.72 $\pm$ 0.28 & 49.52 $\pm$ 1.02 & 2453.5 $\pm$ 100.2 & 27.26 $\pm$ 0.18 & 33.16 $\pm$ 0.28 & 0.7962 $\pm$ 0.0078 \\
+\quad 100 & 31.11 $\pm$ 0.19 & 47.95 $\pm$ 0.90 & 2300.1 $\pm$ 86.3 & 25.62 $\pm$ 0.14 & 30.39 $\pm$ 0.27 & 0.8090 $\pm$ 0.0065 \\
+\quad 200 & 29.53 $\pm$ 0.74 & 45.90 $\pm$ 1.53 & 2108.3 $\pm$ 142.7 & 24.48 $\pm$ 0.95 & 28.43 $\pm$ 1.17 & 0.8249 $\pm$ 0.0115 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{TF-IDF}} \\
+\addlinespace[1pt]
+\quad 10 & 35.43 $\pm$ 0.22 & 52.14 $\pm$ 0.93 & 2718.8 $\pm$ 96.9 & 29.89 $\pm$ 0.25 & 36.96 $\pm$ 0.37 & 0.7742 $\pm$ 0.0070 \\
+\quad 50 & 31.58 $\pm$ 0.34 & 47.83 $\pm$ 1.07 & 2288.7 $\pm$ 102.2 & 26.42 $\pm$ 0.31 & 31.39 $\pm$ 0.42 & 0.8099 $\pm$ 0.0079 \\
+\quad 100 & 30.13 $\pm$ 0.14 & 46.16 $\pm$ 0.86 & 2131.8 $\pm$ 79.1 & 25.13 $\pm$ 0.12 & 29.40 $\pm$ 0.18 & 0.8229 $\pm$ 0.0060 \\
+\quad 200 & 28.58 $\pm$ 0.30 & 44.39 $\pm$ 1.07 & 1971.5 $\pm$ 95.2 & 23.76 $\pm$ 0.32 & 27.29 $\pm$ 0.48 & 0.8363 $\pm$ 0.0076 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{Count Encoding}} \\
+\addlinespace[1pt]
+\quad 10 & 35.44 $\pm$ 0.23 & 52.15 $\pm$ 0.89 & 2719.9 $\pm$ 91.9 & 29.93 $\pm$ 0.11 & 36.99 $\pm$ 0.04 & 0.7741 $\pm$ 0.0069 \\
+\quad 50 & 31.51 $\pm$ 0.36 & 47.81 $\pm$ 1.06 & 2286.8 $\pm$ 101.2 & 26.35 $\pm$ 0.38 & 31.29 $\pm$ 0.54 & 0.8101 $\pm$ 0.0079 \\
+\quad 100 & 29.97 $\pm$ 0.25 & 45.97 $\pm$ 1.02 & 2114.0 $\pm$ 93.4 & 25.02 $\pm$ 0.24 & 29.23 $\pm$ 0.31 & 0.8244 $\pm$ 0.0072 \\
+\quad 200 & 28.34 $\pm$ 0.47 & 44.21 $\pm$ 1.12 & 1955.8 $\pm$ 98.7 & 23.53 $\pm$ 0.43 & 26.94 $\pm$ 0.61 & 0.8376 $\pm$ 0.0077 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{ClinicalBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 31.11 $\pm$ 1.01 & 46.89 $\pm$ 1.56 & 2200.2 $\pm$ 146.9 & 26.24 $\pm$ 0.94 & 30.93 $\pm$ 1.41 & 0.8173 $\pm$ 0.0111 \\
+\quad 50 & 28.18 $\pm$ 0.89 & 43.63 $\pm$ 1.92 & 1906.8 $\pm$ 169.7 & 23.54 $\pm$ 0.74 & 26.71 $\pm$ 0.97 & 0.8416 $\pm$ 0.0137 \\
+\quad 100 & 31.17 $\pm$ 3.74 & 46.88 $\pm$ 4.02 & 2210.3 $\pm$ 386.5 & 27.51 $\pm$ 5.51 & 30.75 $\pm$ 5.22 & 0.8166 $\pm$ 0.0307 \\
+\quad 200 & 27.83 $\pm$ 1.26 & 43.51 $\pm$ 1.72 & 1895.1 $\pm$ 150.9 & 23.28 $\pm$ 1.30 & 26.40 $\pm$ 1.94 & 0.8426 $\pm$ 0.0129 \\
+\addlinespace[4pt]
+\multicolumn{7}{l}{\textbf{SentenceBERT}} \\
+\addlinespace[1pt]
+\quad 10 & 30.39 $\pm$ 0.58 & 46.17 $\pm$ 0.81 & 2131.8 $\pm$ 74.6 & 25.35 $\pm$ 0.44 & 29.42 $\pm$ 0.66 & 0.8229 $\pm$ 0.0057 \\
+\quad 50 & 28.13 $\pm$ 0.59 & 43.51 $\pm$ 1.45 & 1894.6 $\pm$ 125.2 & 23.49 $\pm$ 0.51 & 26.68 $\pm$ 0.63 & 0.8427 $\pm$ 0.0100 \\
+\quad 100 & 30.47 $\pm$ 5.79 & 46.28 $\pm$ 7.26 & 2183.6 $\pm$ 731.8 & 26.63 $\pm$ 7.09 & 30.34 $\pm$ 8.04 & 0.8187 $\pm$ 0.0603 \\
+\quad 200 & 32.88 $\pm$ 5.05 & 49.14 $\pm$ 6.09 & 2444.0 $\pm$ 596.9 & 29.46 $\pm$ 6.13 & 33.78 $\pm$ 7.35 & 0.7970 $\pm$ 0.0495 \\
+\bottomrule
+\end{tabular}
+\end{table}
